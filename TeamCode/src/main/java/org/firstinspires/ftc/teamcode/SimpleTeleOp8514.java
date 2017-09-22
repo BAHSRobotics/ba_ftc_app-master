@@ -39,14 +39,14 @@ import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
 @Disabled
-public class TeleOp_8514 extends OpMode
+public class SimpleTeleOp8514 extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor left = null;
     private DcMotor right = null;
     private DcMotor center = null;
-    private DcMotor[] motors = {left,right,center};
+    private DcMotor[] motors = {left, right, center};
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -85,6 +85,16 @@ public class TeleOp_8514 extends OpMode
             for (DcMotor motor : motors) {
                 motor.setPower(-1.0);
             }
+        }
+        else if (gamepad1.dpad_up) {
+            motors[0].setPower(1.0);
+            motors[1].setPower(-1.0);
+            motors[2].setPower(0.0);
+        }
+        else if (gamepad1.dpad_down) {
+            motors[0].setPower(-1.0);
+            motors[1].setPower(1.0);
+            motors[2].setPower(0.0);
         }
         
     }
