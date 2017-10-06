@@ -88,7 +88,8 @@ public class SimpleTeleOp1056 extends OpMode
         else if (gamepad1.dpad_up) {
             motors[0].setPower(1.0);
             motors[1].setPower(-1.0);
-            motors[2].setPower(0.0);
+            motors[2].setPower(1.0);
+            motors[3].setPower(-1.0);
         }
         else if (gamepad1.dpad_down) {
             motors[0].setPower(-1.0);
