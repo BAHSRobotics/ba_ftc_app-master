@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+@TeleOp(name="8514 Teleop", group="Iterative Opmode")
 public class SimpleTeleOp8514 extends OpMode
 {
     // Declare OpMode members.
@@ -45,19 +45,22 @@ public class SimpleTeleOp8514 extends OpMode
     private DcMotor left = null;
     private DcMotor right = null;
     private DcMotor center = null;
-    private DcMotor[] motors = {left, right, center};
+    private DcMotor[] motors;
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-        left = hardwareMap.dcMotor.get("backLeft");
-        right = hardwareMap.dcMotor.get("frontLeft");
+        left = hardwareMap.dcMotor.get("left");
+        right = hardwareMap.dcMotor.get("right");
         center = hardwareMap.dcMotor.get("center");
         left.setDirection(DcMotor.Direction.FORWARD);
         right.setDirection(DcMotor.Direction.FORWARD);
         center.setDirection(DcMotor.Direction.FORWARD);
+        motors[0] = left;
+        motors[1] = right;
+        motors[2] = center;
 
     }
    // D-Pad: Fw/bw
