@@ -64,9 +64,9 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
     private Servo right = null;
     private Servo Autonomous = null;
     boolean aWasPressed = false;
+    int revolutionsDone = 0;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
-    ElapsedTime timer = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -165,27 +165,24 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(1650);
             chainMotor.setPower(0.5);
+            revolutionsDone = revolutionsDone + 1650;
             aWasPressed = true;
             }
         // Opens Servo's
         else if (gamepad1.b) {
-            while(chainMotor.getCurrentPosition()>0 && aWasPressed){
-                left.setPosition(0.0);
-                right.setPosition(1.0);
-                //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-                chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                chainMotor.setTargetPosition(-1650);
-                chainMotor.setPower(0.5);
-            }
+            // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
+            left.setPosition(0.0);
+            right.setPosition(1.0);
+            //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+            chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+            chainMotor.setTargetPosition(-revolutionsDone);
+            chainMotor.setPower(0.5);
+            revolutionsDone = 0;
+        //}
 
 
         } else if (gamepad1.x) {
-            left.setPosition(1.0);
-            right.setPosition(0.0);
-            chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-            chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            chainMotor.setTargetPosition(1650*3);
-            chainMotor.setPower(0.5);
+            //linearslider
         }
         else if (gamepad1.dpad_up == true) {
             frontLeft.setPower(-1.0);
