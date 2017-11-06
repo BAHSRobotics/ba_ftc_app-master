@@ -161,7 +161,6 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
         else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
-            chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(1650);
             chainMotor.setPower(0.5);

@@ -97,7 +97,9 @@ public class SimpleTeleOp1056 extends OpMode
             motors[2].setPower(-1.0);
             motors[3].setPower(1.0);
         }
-        
+   /*     else if (gamepad2.) {
+        }
+        */
     }
     @Override
     public void stop() {
