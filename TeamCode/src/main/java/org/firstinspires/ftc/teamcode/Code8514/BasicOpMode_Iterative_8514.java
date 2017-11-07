@@ -136,38 +136,38 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.left_bumper == true) {
+        if (gamepad1.left_bumper) {
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
 
         }
-        else if (gamepad1.right_bumper == true) {
+        else if (gamepad1.right_bumper) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
         }
-        else if (gamepad1.dpad_down == true) {
+        else if (gamepad1.dpad_down) {
             frontLeft.setPower(1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
 
         }
-        // Closes Servo's
+        // Closes Servos
         else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(1650);
             chainMotor.setPower(0.5);
-            revolutionsDone = revolutionsDone + 1650;
+            revolutionsDone += 1650; //same as x = x + some_number
             aWasPressed = true;
             }
-        // Opens Servo's
+        // Opens Servos
         else if (gamepad1.b) {
             // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
             left.setPosition(0.0);

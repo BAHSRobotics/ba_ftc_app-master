@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="Basic: Iterative OpModev2", group="Iterative Opmode")
+@TeleOp(name="10526 Driver", group="Iterative Opmode")
 public class BasicOpMode_Iterative_10526 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -128,7 +128,6 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
     public void start() {
         runtime.reset();
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
     }
 
     /*
@@ -164,7 +163,7 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(1650);
             chainMotor.setPower(0.5);
-            revolutionsDone = revolutionsDone + 1650;
+            revolutionsDone += 1650;
             aWasPressed = true;
             }
         // Opens Servo's
@@ -197,13 +196,12 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
         }
     }
 
-
-
     /*
      * Code to run ONCE after the driver hits STOP
      */
     @Override
     public void stop() {
+        chainMotor.setTargetPosition(0);
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
