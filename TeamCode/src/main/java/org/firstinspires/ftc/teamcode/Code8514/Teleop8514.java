@@ -37,7 +37,22 @@ import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="8514 Teleop", group="Iterative Opmode")
+/**
+ * This file contains an example of an iterative (Non-Linear) "OpMode".
+ *
+ * @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+ * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
+ * The names of OpModes appear on the menu of the FTC Driver Station.
+ * When an selection is made from the menu, the corresponding OpMode
+ * class is instantiated on the Robot Controller and executed.
+ * <p>
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * It includes all the skeletal structure that all iterative OpModes contain.
+ * <p>
+ * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ */
+@TeleOp(name = "Basic: Iterative OpModev2", group = "Iterative Opmode")
 public class Teleop8514 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -49,13 +64,14 @@ public class Teleop8514 extends OpMode {
     private Servo left = null;
     private Servo right = null;
     private Servo Autonomous = null;
-    int height;
+    boolean aWasPressed = false;
+    int revolutionsDone = 0;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
     /*
-     * Code to run ONCE when the driver hits INIT
-     */
+* Code to run ONCE when the driver hits INIT
+*/
     @Override
     public void init() {
         telemetry.addData("Status", "Initialized");
@@ -74,7 +90,7 @@ public class Teleop8514 extends OpMode {
         chainMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-        gyro = modernRoboticsI2cGyro;
+        gyro = (IntegratingGyroscope) modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.
@@ -88,29 +104,27 @@ public class Teleop8514 extends OpMode {
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
-        chainMotor.setDirection(DcMotor.Direction. FORWARD);
+        chainMotor.setDirection(DcMotor.Direction.FORWARD);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-        height = 1;
-
         int position = chainMotor.getCurrentPosition();
         telemetry.addData("Encoder Position", position);
     }
 
     /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
+* Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
+*/
     @Override
     public void init_loop() {
         left.setPosition(0.0);
         right.setPosition(1.0);
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       // chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        // chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /*
-     * Code to run ONCE when the driver hits PLAY
-     */
+* Code to run ONCE when the driver hits PLAY
+*/
     @Override
     public void start() {
         runtime.reset();
@@ -119,8 +133,8 @@ public class Teleop8514 extends OpMode {
     }
 
     /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
+* Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
+*/
     @Override
     public void loop() {
         if (gamepad1.left_bumper) {
@@ -129,53 +143,50 @@ public class Teleop8514 extends OpMode {
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
 
-        }
-        else if (gamepad1.right_bumper) {
+        } else if (gamepad1.right_bumper) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
-        }
-        else if (gamepad1.dpad_down) {
+        } else if (gamepad1.dpad_down) {
             frontLeft.setPower(1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
 
         }
-        // Closes Servos
+        // Closes Servo's
         else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            chainMotor.setTargetPosition(1650 * height);
-            chainMotor.setPower(0.6);
-            height++;
-            }
-        // Opens Servos
+            chainMotor.setTargetPosition(1650);
+            chainMotor.setPower(0.5);
+            revolutionsDone = revolutionsDone + 1650;
+            aWasPressed = true;
+        }
+        // Opens Servo's
         else if (gamepad1.b) {
             // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
             left.setPosition(0.0);
             right.setPosition(1.0);
             //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            height--;
-            chainMotor.setTargetPosition(1650 * height);
-            chainMotor.setPower(0.6);
-        //}
+            chainMotor.setTargetPosition(-revolutionsDone);
+            chainMotor.setPower(0.5);
+            revolutionsDone = 0;
+            //}
 
 
         } else if (gamepad1.x) {
             //linearslider
-        }
-        else if (gamepad1.dpad_up) {
+        } else if (gamepad1.dpad_up) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
-        }
-        else {
+        } else {
             frontLeft.setPower(0);
             frontRight.setPower(0);
             backLeft.setPower(0);
@@ -184,10 +195,9 @@ public class Teleop8514 extends OpMode {
     }
 
 
-
     /*
-     * Code to run ONCE after the driver hits STOP
-     */
+* Code to run ONCE after the driver hits STOP
+*/
     @Override
     public void stop() {
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -57,13 +57,11 @@ public class Teleop10526 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     //private DcMotor frontLeft = null;
     //private DcMotor frontRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor backRight = null;
-    private DcMotor chainMotor = null;
-    private Servo left = null;
-    private Servo right = null;
+    private DcMotor backLeft, chainMotor, backRight = null;
+    private Servo left, right = null;
     //private Servo Autonomous = null;
     private int n;
+    private boolean xFlag, yFlag, aFlag, bFlag;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
     /*
@@ -131,12 +129,15 @@ public class Teleop10526 extends OpMode {
      */
     @Override
     public void loop() {
+        aFlag = true;
+        bFlag = true;
+        xFlag = true;
+        yFlag = true;
         if (gamepad1.left_bumper) {
           //  frontLeft.setPower(1.0);
             //frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
-
         }
         else if (gamepad1.right_bumper) {
           //  frontLeft.setPower(-1.0);
@@ -150,7 +151,6 @@ public class Teleop10526 extends OpMode {
             //frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
-
         }
         // Closes Servo's
         else if (gamepad1.a) {
