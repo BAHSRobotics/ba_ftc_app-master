@@ -84,7 +84,7 @@ public class BasicOpMode_Iterative_JuanBeaver4wheelPrototype extends OpMode {
         right = hardwareMap.get(Servo.class, "rightServo");
         chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+        gyro = modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.
