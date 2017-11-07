@@ -27,11 +27,14 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Code8514;
+package org.firstinspires.ftc.teamcode.misc;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -48,13 +51,20 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="Test1", group="Iterative Opmode")
-public class BasicOpMode_Iterative_JuanBeaver extends OpMode {
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+public class BasicOpMode_Iterative_JuanBeaver4wheelPrototype extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor left = null;
-    private DcMotor right = null;
-    private DcMotor center = null;
+    private DcMotor frontLeft = null;
+    private DcMotor frontRight = null;
+    private DcMotor backLeft = null;
+    private DcMotor backRight = null;
+    private DcMotor chainMotor = null;
+    private Servo left = null;
+    private Servo right = null;
+    IntegratingGyroscope gyro;
+    ModernRoboticsI2cGyro modernRoboticsI2cGyro;
+    ElapsedTime timer = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -66,16 +76,29 @@ public class BasicOpMode_Iterative_JuanBeaver extends OpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        left = hardwareMap.get(DcMotor.class, "left");
-        right = hardwareMap.get(DcMotor.class, "right");
-        center = hardwareMap.get(DcMotor.class, "center");
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        left = hardwareMap.get(Servo.class, "leftServo");
+        right = hardwareMap.get(Servo.class, "rightServo");
+        chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
+        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
+        gyro = modernRoboticsI2cGyro;
+
+        // Start calibrating the gyro. This takes a few seconds and is worth performing
+        // during the initialization phase at the start of each opMode.
+        telemetry.log().add("Gyro Calibrating. Do Not Move!");
+        modernRoboticsI2cGyro.calibrate();
+
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        left.setDirection(DcMotor.Direction.FORWARD);
-        right.setDirection(DcMotor.Direction.FORWARD);
-        center.setDirection(DcMotor.Direction.FORWARD);
-
+        frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        backLeft.setDirection(DcMotor.Direction.FORWARD);
+        backRight.setDirection(DcMotor.Direction.FORWARD);
+        chainMotor.setDirection(DcMotor.Direction. FORWARD);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -85,6 +108,9 @@ public class BasicOpMode_Iterative_JuanBeaver extends OpMode {
      */
     @Override
     public void init_loop() {
+        left.setPosition(0.0);
+        right.setPosition(1.0);
+       // chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /*
@@ -93,6 +119,9 @@ public class BasicOpMode_Iterative_JuanBeaver extends OpMode {
     @Override
     public void start() {
         runtime.reset();
+        int position = chainMotor.getCurrentPosition();
+        telemetry.addData("Encoder Position", position);
+
     }
 
     /*
@@ -100,26 +129,51 @@ public class BasicOpMode_Iterative_JuanBeaver extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.right_bumper == true) {
-            left.setPower(-1.0);
-            right.setPower(-1.0);
-            center.setPower(-1.0);
-        } else if (gamepad1.left_bumper == true) {
-            left.setPower(1.0);
-            right.setPower(1.0);
-            center.setPower(1.0);
-        } else if (gamepad1.dpad_up == true) {
-            left.setPower(-1.0);
-            right.setPower(1.0);
-            center.setPower(0);
-        } else if (gamepad1.dpad_down == true) {
-            left.setPower(1.0);
-            right.setPower(-1.0);
-            center.setPower(0);
-        }else {
-            left.setPower(0.0);
-            right.setPower(0.0);
-            center.setPower(0.0);
+        if (gamepad1.left_bumper == true) {
+            frontLeft.setPower(1.0);
+            frontRight.setPower(1.0);
+            backLeft.setPower(1.0);
+            backRight.setPower(1.0);
+
+        }
+        else if (gamepad1.right_bumper == true) {
+            frontLeft.setPower(-1.0);
+            frontRight.setPower(-1.0);
+            backLeft.setPower(-1.0);
+            backRight.setPower(-1.0);
+
+        }
+        else if (gamepad1.dpad_down == true) {
+            frontLeft.setPower(1.0);
+            frontRight.setPower(-1.0);
+            backLeft.setPower(1.0);
+            backRight.setPower(-1.0);
+
+        }
+        else if (gamepad1.a) {
+            left.setPosition(1.0);
+            right.setPosition(0.0);
+            }
+        else if (gamepad1.b) {
+            left.setPosition(0.0);
+            right.setPosition(1.0);
+            chainMotor.setPower(0.0);
+        }
+        else if (gamepad1.dpad_up == true) {
+            frontLeft.setPower(-1.0);
+            frontRight.setPower(1.0);
+            backLeft.setPower(-1.0);
+            backRight.setPower(1.0);
+        } else if (gamepad1.x == true) {
+            chainMotor.setPower(0.5);
+        } else if (gamepad1.y == true){
+            chainMotor.setPower(-0.5);
+        }
+        else {
+            frontLeft.setPower(0);
+            frontRight.setPower(0);
+            backLeft.setPower(0);
+            backRight.setPower(0);
         }
     }
 
