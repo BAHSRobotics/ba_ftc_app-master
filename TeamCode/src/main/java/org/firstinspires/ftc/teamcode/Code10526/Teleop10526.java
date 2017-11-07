@@ -55,14 +55,14 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class Teleop10526 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
+    //private DcMotor frontLeft = null;
+    //private DcMotor frontRight = null;
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
     private DcMotor chainMotor = null;
     private Servo left = null;
     private Servo right = null;
-    private Servo Autonomous = null;
+    //private Servo Autonomous = null;
     private int n;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
@@ -76,8 +76,8 @@ public class Teleop10526 extends OpMode {
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
         // step (using the FTC Robot Controller app on the phone).
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        //frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        //frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         left = hardwareMap.get(Servo.class, "leftServo");
@@ -96,8 +96,8 @@ public class Teleop10526 extends OpMode {
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
         n = 1;
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
+        //frontLeft.setDirection(DcMotor.Direction.FORWARD);
+        //frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
         chainMotor.setDirection(DcMotor.Direction. FORWARD);
@@ -132,22 +132,22 @@ public class Teleop10526 extends OpMode {
     @Override
     public void loop() {
         if (gamepad1.left_bumper) {
-            frontLeft.setPower(1.0);
-            frontRight.setPower(1.0);
+          //  frontLeft.setPower(1.0);
+            //frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
 
         }
         else if (gamepad1.right_bumper) {
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(-1.0);
+          //  frontLeft.setPower(-1.0);
+            //frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
         }
         else if (gamepad1.dpad_down) {
-            frontLeft.setPower(1.0);
-            frontRight.setPower(-1.0);
+          //  frontLeft.setPower(1.0);
+            //frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
 
@@ -177,14 +177,14 @@ public class Teleop10526 extends OpMode {
             n = 1;
         }
         else if (gamepad1.dpad_up) {
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(1.0);
+           // frontLeft.setPower(-1.0);
+            //frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
         }
         else {
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
+           // frontLeft.setPower(0);
+            //frontRight.setPower(0);
             backLeft.setPower(0);
             backRight.setPower(0);
         }
