@@ -118,7 +118,6 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
         left.setPosition(0.0);
         right.setPosition(1.0);
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-       // chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /*
@@ -136,6 +135,9 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
      */
     @Override
     public void loop() {
+        int position = chainMotor.getCurrentPosition();
+        telemetry.addData("Encoder Position", position);
+
         if (gamepad1.left_bumper == true) {
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
@@ -169,15 +171,11 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
             }
         // Opens Servo's
         else if (gamepad1.b) {
-            // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
             left.setPosition(0.0);
             right.setPosition(1.0);
-            //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(-revolutionsDone);
             chainMotor.setPower(0.5);
-            revolutionsDone = 0;
-        //}
 
 
         } else if (gamepad1.x) {
