@@ -51,7 +51,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="Basic: Iterative OpModev2", group="Iterative Opmode")
+@TeleOp(name="8514 teleop", group="Iterative Opmode")
 public class BasicOpMode_Iterative_8514 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -177,13 +177,11 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
             chainMotor.setTargetPosition(-revolutionsDone);
             chainMotor.setPower(0.5);
             revolutionsDone = 0;
-        //}
-
-
-        } else if (gamepad1.x) {
+        }
+        else if (gamepad1.x) {
             //linearslider
         }
-        else if (gamepad1.dpad_up == true) {
+        else if (gamepad1.dpad_up) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
