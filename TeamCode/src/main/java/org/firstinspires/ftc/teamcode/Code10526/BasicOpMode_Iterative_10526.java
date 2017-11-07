@@ -89,7 +89,7 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
         chainMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+        gyro = modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.

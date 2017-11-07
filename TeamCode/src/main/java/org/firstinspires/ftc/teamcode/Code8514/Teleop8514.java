@@ -37,22 +37,8 @@ import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- *
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all iterative OpModes contain.
- *
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
-@TeleOp(name="Basic: Iterative OpModev2", group="Iterative Opmode")
-public class BasicOpMode_Iterative_8514 extends OpMode {
+@TeleOp(name="8514 Teleop", group="Iterative Opmode")
+public class Teleop8514 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft = null;
@@ -63,8 +49,7 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
     private Servo left = null;
     private Servo right = null;
     private Servo Autonomous = null;
-    boolean aWasPressed = false;
-    int revolutionsDone = 0;
+    int height;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
 
@@ -89,7 +74,7 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
         chainMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
+        gyro = modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.
@@ -106,6 +91,8 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
         chainMotor.setDirection(DcMotor.Direction. FORWARD);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
+        height = 1;
+
         int position = chainMotor.getCurrentPosition();
         telemetry.addData("Encoder Position", position);
     }
@@ -162,10 +149,9 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
             left.setPosition(1.0);
             right.setPosition(0.0);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            chainMotor.setTargetPosition(1650);
-            chainMotor.setPower(0.5);
-            revolutionsDone += 1650; //same as x = x + some_number
-            aWasPressed = true;
+            chainMotor.setTargetPosition(1650 * height);
+            chainMotor.setPower(0.6);
+            height++;
             }
         // Opens Servos
         else if (gamepad1.b) {
@@ -174,16 +160,16 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
             right.setPosition(1.0);
             //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            chainMotor.setTargetPosition(-revolutionsDone);
-            chainMotor.setPower(0.5);
-            revolutionsDone = 0;
+            height--;
+            chainMotor.setTargetPosition(1650 * height);
+            chainMotor.setPower(0.6);
         //}
 
 
         } else if (gamepad1.x) {
             //linearslider
         }
-        else if (gamepad1.dpad_up == true) {
+        else if (gamepad1.dpad_up) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
