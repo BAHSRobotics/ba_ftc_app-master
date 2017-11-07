@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Code10526;
+package org.firstinspires.ftc.teamcode.misc;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -51,8 +51,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="10526 Driver", group="Iterative Opmode")
-public class BasicOpMode_Iterative_10526 extends OpMode {
+@TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+public class BasicOpMode_Iterative_JuanBeaver4wheelPrototype extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft = null;
@@ -62,16 +62,16 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
     private DcMotor chainMotor = null;
     private Servo left = null;
     private Servo right = null;
-    private Servo Autonomous = null;
-    private int n;
+    IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
+    ElapsedTime timer = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
      */
     @Override
     public void init() {
-        telemetry.addData("Status", "Initializing");
+        telemetry.addData("Status", "Initialized");
 
         // Initialize the hardware variables. Note that the strings used here as parameters
         // to 'get' must correspond to the names assigned during the robot configuration
@@ -82,10 +82,9 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         left = hardwareMap.get(Servo.class, "leftServo");
         right = hardwareMap.get(Servo.class, "rightServo");
-        //Autonomous = hardwareMap.get(Servo.class, "autoServo");
         chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
-
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
+        gyro = modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.
@@ -95,16 +94,13 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
 
         // Most robots need the motor on one side to be reversed to drive forward
         // Reverse the motor that runs backwards when connected directly to the battery
-        n = 1;
         frontLeft.setDirection(DcMotor.Direction.FORWARD);
         frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
         chainMotor.setDirection(DcMotor.Direction. FORWARD);
         // Tell the driver that initialization is complete.
-        telemetry.clear();
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Encoder Position", chainMotor.getCurrentPosition());
     }
 
     /*
@@ -114,7 +110,7 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
     public void init_loop() {
         left.setPosition(0.0);
         right.setPosition(1.0);
-        chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+       // chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
 
     /*
@@ -123,7 +119,9 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
     @Override
     public void start() {
         runtime.reset();
-        chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        int position = chainMotor.getCurrentPosition();
+        telemetry.addData("Encoder Position", position);
+
     }
 
     /*
@@ -131,56 +129,45 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
      */
     @Override
     public void loop() {
-        if (gamepad1.left_bumper) {
+        if (gamepad1.left_bumper == true) {
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
 
         }
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.right_bumper == true) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
         }
-        else if (gamepad1.dpad_down) {
+        else if (gamepad1.dpad_down == true) {
             frontLeft.setPower(1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
 
         }
-        // Closes Servo's
         else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
-            chainMotor.setTargetPosition(1650 * n);
-            n++; //increment
-            chainMotor.setPower(0.5);
             }
-        // Opens Servo's
         else if (gamepad1.b) {
             left.setPosition(0.0);
             right.setPosition(1.0);
-            n--; //decrement
-            chainMotor.setTargetPosition(1650*n);
-            chainMotor.setPower(0.5);
-
-        } else if (gamepad1.x) {
-            chainMotor.setTargetPosition(1650*4);
-            n = 4;
+            chainMotor.setPower(0.0);
         }
-        else if(gamepad1.y) {
-            chainMotor.setTargetPosition(0);
-            n = 1;
-        }
-        else if (gamepad1.dpad_up) {
+        else if (gamepad1.dpad_up == true) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
+        } else if (gamepad1.x == true) {
+            chainMotor.setPower(0.5);
+        } else if (gamepad1.y == true){
+            chainMotor.setPower(-0.5);
         }
         else {
             frontLeft.setPower(0);
@@ -189,6 +176,8 @@ public class BasicOpMode_Iterative_10526 extends OpMode {
             backRight.setPower(0);
         }
     }
+
+
 
     /*
      * Code to run ONCE after the driver hits STOP
