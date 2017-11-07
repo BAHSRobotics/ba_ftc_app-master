@@ -129,10 +129,7 @@ public class Teleop10526 extends OpMode {
      */
     @Override
     public void loop() {
-        aFlag = true;
-        bFlag = true;
-        xFlag = true;
-        yFlag = true;
+
         if (gamepad1.left_bumper) {
           //  frontLeft.setPower(1.0);
             //frontRight.setPower(1.0);
@@ -153,19 +150,21 @@ public class Teleop10526 extends OpMode {
             backRight.setPower(-1.0);
         }
         // Closes Servo's
-        else if (gamepad1.a) {
+        else if (gamepad1.a && aFlag) {
             left.setPosition(1.0);
             right.setPosition(0.0);
             chainMotor.setTargetPosition(1650 * n);
             n++; //increment
             chainMotor.setPower(0.5);
+            aFlag = false;
             }
+
         // Opens Servo's
         else if (gamepad1.b) {
             left.setPosition(0.0);
             right.setPosition(1.0);
-            n--; //decrement
-            chainMotor.setTargetPosition(1650*n);
+            --n; //decrement
+            chainMotor.setTargetPosition(1650 * n);
             chainMotor.setPower(0.5);
 
         } else if (gamepad1.x) {
@@ -181,6 +180,12 @@ public class Teleop10526 extends OpMode {
             //frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
+        }
+        else if (!aFlag || !bFlag || !xFlag || !yFlag) {
+            aFlag = true;
+            bFlag = true;
+            xFlag = true;
+            yFlag = true;
         }
         else {
            // frontLeft.setPower(0);
