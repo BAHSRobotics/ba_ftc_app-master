@@ -160,18 +160,18 @@ public class Teleop10526 extends OpMode {
             }
 
         // Opens Servo's
-        else if (gamepad1.b) {
+        else if (gamepad1.b && bFlag) {
             left.setPosition(0.0);
             right.setPosition(1.0);
             --n; //decrement
             chainMotor.setTargetPosition(1650 * n);
             chainMotor.setPower(0.5);
 
-        } else if (gamepad1.x) {
+        } else if (gamepad1.x && xFlag) {
             chainMotor.setTargetPosition(1650*4);
             n = 4;
         }
-        else if(gamepad1.y) {
+        else if(gamepad1.y && yFlag) {
             chainMotor.setTargetPosition(0);
             n = 1;
         }
