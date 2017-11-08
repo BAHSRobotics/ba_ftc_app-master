@@ -29,169 +29,130 @@
 
 package org.firstinspires.ftc.teamcode.Code10526;
 
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
- @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+ *
+ * @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
  * The names of OpModes appear on the menu of the FTC Driver Station.
  * When an selection is made from the menu, the corresponding OpMode
  * class is instantiated on the Robot Controller and executed.
- *
+ * <p>
  * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
  * It includes all the skeletal structure that all iterative OpModes contain.
- *
+ * <p>
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="10526 Driver", group="Iterative Opmode")
+@TeleOp(name = "10526 Driver", group = "Iterative Opmode")
 public class Teleop10526 extends OpMode {
-    // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    //private DcMotor frontLeft = null;
-    //private DcMotor frontRight = null;
     private DcMotor backLeft, chainMotor, backRight = null;
     private Servo left, right = null;
-    //private Servo Autonomous = null;
     private int n;
-    private boolean xFlag, yFlag, aFlag, bFlag;
-    ModernRoboticsI2cGyro modernRoboticsI2cGyro;
+    private boolean aPressed, bPressed, xPressed, yPressed;
 
-    /*
-     * Code to run ONCE when the driver hits INIT
-     */
+    @Override
+    public void init_loop() {
+
+    }
+
     @Override
     public void init() {
-        telemetry.addData("Status", "Initializing");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        //frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        //frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+
+        telemetry.addData("Status", "Initializing");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        left = hardwareMap.get(Servo.class, "leftServo");
-        right = hardwareMap.get(Servo.class, "rightServo");
-        //Autonomous = hardwareMap.get(Servo.class, "autoServo");
+
         chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
-
-        modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-
-        // Start calibrating the gyro. This takes a few seconds and is worth performing
-        // during the initialization phase at the start of each opMode.
+        left.setPosition(0.0);
+        right.setPosition(1.0);
+        chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
-        modernRoboticsI2cGyro.calibrate();
 
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
         n = 1;
-        //frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        //frontRight.setDirection(DcMotor.Direction.FORWARD);
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
-        chainMotor.setDirection(DcMotor.Direction. FORWARD);
-        // Tell the driver that initialization is complete.
+        chainMotor.setDirection(DcMotor.Direction.FORWARD);
+
         telemetry.clear();
         telemetry.addData("Status", "Initialized");
         telemetry.addData("Encoder Position", chainMotor.getCurrentPosition());
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
-     */
-    @Override
-    public void init_loop() {
-        left.setPosition(0.0);
-        right.setPosition(1.0);
-        chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-    }
-
-    /*
-     * Code to run ONCE when the driver hits PLAY
-     */
     @Override
     public void start() {
         runtime.reset();
         chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addData("N-value", n);
     }
 
-    /*
-     * Code to run REPEATEDLY after the driver hits PLAY but before they hit STOP
-     */
     @Override
     public void loop() {
-
         if (gamepad1.left_bumper) {
-          //  frontLeft.setPower(1.0);
-            //frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
-        }
-        else if (gamepad1.right_bumper) {
-          //  frontLeft.setPower(-1.0);
-            //frontRight.setPower(-1.0);
+        } else if (gamepad1.right_bumper) {
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
-        }
-        else if (gamepad1.dpad_down) {
-          //  frontLeft.setPower(1.0);
-            //frontRight.setPower(-1.0);
+        } else if (gamepad1.dpad_down) {
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
         }
-        // Closes Servo's
         else if (gamepad1.a && aFlag) {
-            left.setPosition(1.0);
-            right.setPosition(0.0);
-            chainMotor.setTargetPosition(1650 * n);
-            n++; //increment
-            chainMotor.setPower(0.5);
-            aFlag = false;
+            chainMotor.setTargetPosition(100 * n);
+            if (n < 4) {
+                n++;
+                chainMotor.setPower(0.5);
+                telemetry.addData("N-value", n);
             }
+            aFlag = false;
+        }
 
         // Opens Servo's
         else if (gamepad1.b && bFlag) {
-            left.setPosition(0.0);
-            right.setPosition(1.0);
-            --n; //decrement
-            chainMotor.setTargetPosition(1650 * n);
+            if (n > 2) {
+                --n;
+                telemetry.addData("N-value", n);
+
+            } //decrement
+            chainMotor.setTargetPosition(100 * n);
             chainMotor.setPower(0.5);
+            bFlag = false;
 
         } else if (gamepad1.x && xFlag) {
-            chainMotor.setTargetPosition(1650*4);
+            chainMotor.setTargetPosition(10);
+            chainMotor.setPower(.5);
             n = 4;
-        }
-        else if(gamepad1.y && yFlag) {
+        } else if (gamepad1.y && yFlag) {
             chainMotor.setTargetPosition(0);
+            chainMotor.setPower(.5);
             n = 1;
-        }
-        else if (gamepad1.dpad_up) {
-           // frontLeft.setPower(-1.0);
-            //frontRight.setPower(1.0);
+        } else if (gamepad1.dpad_up) {
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
-        }
-        else if (!aFlag || !bFlag || !xFlag || !yFlag) {
+        } else if (!aFlag ) {
             aFlag = true;
+
+        } else if (!bFlag) {
             bFlag = true;
+        } else if (!xFlag) {
             xFlag = true;
+        } else if (!yFlag) {
             yFlag = true;
-        }
-        else {
-           // frontLeft.setPower(0);
-            //frontRight.setPower(0);
+        } else {
+
             backLeft.setPower(0);
             backRight.setPower(0);
+            chainMotor.setPower(0);
         }
     }
 
