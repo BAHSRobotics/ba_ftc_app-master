@@ -27,19 +27,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Code8514;
+package Test8514;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="8514 Teleop", group="Iterative Opmode")
-public class Teleop8514 extends OpMode {
+/**
+ * This file contains an example of an iterative (Non-Linear) "OpMode".
+ @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
+ * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
+ * The names of OpModes appear on the menu of the FTC Driver Station.
+ * When an selection is made from the menu, the corresponding OpMode
+ * class is instantiated on the Robot Controller and executed.
+ *
+ * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
+ * It includes all the skeletal structure that all iterative OpModes contain.
+ *
+ * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
+ * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
+ */
+@TeleOp(name="Basic: Iterative OpModev2", group="Iterative Opmode")
+public class BasicOpMode_Iterative_8514 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft = null;
@@ -47,16 +60,14 @@ public class Teleop8514 extends OpMode {
     private DcMotor backLeft = null;
     private DcMotor backRight = null;
     private DcMotor chainMotor = null;
-    private DcMotor linearSlide = null;
     private Servo left = null;
     private Servo right = null;
-   // private Servo Autonomous = null;
-    private Servo slideClawJoint = null;
-    private Servo slideClaw = null;
-    int height;
-    double clawPos = 0;
+    private Servo Autonomous = null;
+    boolean aWasPressed = false;
+    int revolutionsDone = 0;
     IntegratingGyroscope gyro;
     ModernRoboticsI2cGyro modernRoboticsI2cGyro;
+    ElapsedTime timer = new ElapsedTime();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -72,17 +83,14 @@ public class Teleop8514 extends OpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
-        linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
         left = hardwareMap.get(Servo.class, "leftServo");
         right = hardwareMap.get(Servo.class, "rightServo");
-        slideClawJoint = hardwareMap.get(Servo.class, "clawJoint");
-        slideClaw = hardwareMap.get(Servo.class, "slideClaw");
        // Autonomous = hardwareMap.get(Servo.class, "autoServo");
         chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
         chainMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         modernRoboticsI2cGyro = hardwareMap.get(ModernRoboticsI2cGyro.class, "gyroSensor");
-        gyro = modernRoboticsI2cGyro;
+        gyro = (IntegratingGyroscope)modernRoboticsI2cGyro;
 
         // Start calibrating the gyro. This takes a few seconds and is worth performing
         // during the initialization phase at the start of each opMode.
@@ -97,11 +105,8 @@ public class Teleop8514 extends OpMode {
         backLeft.setDirection(DcMotor.Direction.FORWARD);
         backRight.setDirection(DcMotor.Direction.FORWARD);
         chainMotor.setDirection(DcMotor.Direction. FORWARD);
-        linearSlide.setDirection(DcMotor.Direction.FORWARD);
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-        height = 1;
-
         int position = chainMotor.getCurrentPosition();
         telemetry.addData("Encoder Position", position);
     }
@@ -124,8 +129,6 @@ public class Teleop8514 extends OpMode {
     public void start() {
         runtime.reset();
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        linearSlide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        slideClawJoint.setPosition(0.0);
 
     }
 
@@ -134,64 +137,59 @@ public class Teleop8514 extends OpMode {
      */
     @Override
     public void loop() {
-
-        if (gamepad1.left_bumper) {
+        if (gamepad1.left_bumper == true) {
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
 
         }
-        else if (gamepad1.right_bumper) {
+        else if (gamepad1.right_bumper == true) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
 
         }
-        else if (gamepad1.dpad_down) {
+        else if (gamepad1.dpad_down == true) {
             frontLeft.setPower(1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
 
         }
-        // Closes Servos
+        // Closes Servo's
         else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
+            chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            chainMotor.setTargetPosition(1650 * height);
-            chainMotor.setPower(0.6);
-            height++;
+            chainMotor.setTargetPosition(1650);
+            revolutionsDone = revolutionsDone + 1650;
+            chainMotor.setPower(0.5);
+            //aWasPressed = true;
             }
-        // Opens Servos
+        // Opens Servo's
         else if (gamepad1.b) {
-            // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
-            left.setPosition(0.0);
-            right.setPosition(1.0);
-            //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+           // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
+                left.setPosition(0.0);
+                right.setPosition(1.0);
+                //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+                chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+                chainMotor.setTargetPosition(-revolutionsDone);
+                chainMotor.setPower(0.5);
+          //  }
+
+
+        } else if (gamepad1.x) {
+            left.setPosition(1.0);
+            right.setPosition(0.0);
+            chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            height--;
-            chainMotor.setTargetPosition(-1650 * height);
-            chainMotor.setPower(0.6);
-
-
-        } else if (gamepad1.right_trigger > 0.5){
-            linearSlide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            linearSlide.setPower(0.5);
-            linearSlide.setTargetPosition(1650 * 7);
-
-        } else if (gamepad1.left_trigger == 1.0){
-            clawPos = clawPos + 0.1;
-            slideClawJoint.setPosition(clawPos);
-        } else if (clawPos == 1.0){
-            clawPos = 0.0;
+            chainMotor.setTargetPosition(1650*3);
+            chainMotor.setPower(0.5);
         }
-        else if (gamepad1.x) {
-            slideClaw.setPosition(1.0);
-        }
-        else if (gamepad1.dpad_up) {
+        else if (gamepad1.dpad_up == true) {
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
