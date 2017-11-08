@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.SharedFiles;
 /**
  * Created by Caleb Trevino on 11/8/2017.
  */
+
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-public class ServoControl {
+public class GlyphCatcher {
 
     private Servo leftServo;
     private Servo rightServo;
 
-    public ServoControl(HardwareMap hardwareMap) {
+    public GlyphCatcher(HardwareMap hardwareMap) {
         leftServo = hardwareMap.get(Servo.class, "leftServo");
         rightServo = hardwareMap.get(Servo.class, "rightServo");
     }

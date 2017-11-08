@@ -32,8 +32,8 @@ package org.firstinspires.ftc.teamcode.Code10526;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.SharedFiles.GlyphCatcher;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -52,11 +52,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  */
 @TeleOp(name = "10526 Driver", group = "Iterative Opmode")
 public class Teleop10526 extends OpMode {
+
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor backLeft, chainMotor, backRight = null;
-    private Servo left, right = null;
-    private int n;
-    private boolean aPressed, bPressed, xPressed, yPressed;
+    private GlyphCatcher catcher = new GlyphCatcher(hardwareMap);
 
     @Override
     public void init_loop() {
@@ -72,8 +70,7 @@ public class Teleop10526 extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backRight");
 
         chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
-        left.setPosition(0.0);
-        right.setPosition(1.0);
+        catcher.openClaw();
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
 
