@@ -27,7 +27,7 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package Test8514;
+package org.firstinspires.ftc.teamcode.Code8514;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
@@ -51,8 +51,8 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
-@TeleOp(name="Basic: Iterative OpModev2", group="Iterative Opmode")
-public class BasicOpMode_Iterative_8514 extends OpMode {
+@TeleOp(name="Basic: Iterative 8514 backup", group="Iterative Opmode")
+public class BasicOpMode_Iterative_8514V2 extends OpMode {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor frontLeft = null;
@@ -159,16 +159,16 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
 
         }
         // Closes Servo's
-        else if (gamepad1.a) {
+      /*  else if (gamepad1.a) {
             left.setPosition(1.0);
             right.setPosition(0.0);
             chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
             chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             chainMotor.setTargetPosition(1650);
             revolutionsDone = revolutionsDone + 1650;
-            chainMotor.setPower(0.5);
+            chainMotor.setPower(0.25);
             //aWasPressed = true;
-            }
+            }*/
         // Opens Servo's
         else if (gamepad1.b) {
            // while(chainMotor.getCurrentPosition()>0 && aWasPressed){
@@ -177,7 +177,7 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
                 //chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
                 chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
                 chainMotor.setTargetPosition(-revolutionsDone);
-                chainMotor.setPower(0.5);
+                chainMotor.setPower(0.35);
           //  }
 
 
@@ -211,6 +211,7 @@ public class BasicOpMode_Iterative_8514 extends OpMode {
     @Override
     public void stop() {
         chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        revolutionsDone = 0;
     }
 
 }

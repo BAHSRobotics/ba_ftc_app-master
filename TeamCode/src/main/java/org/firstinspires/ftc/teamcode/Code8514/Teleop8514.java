@@ -37,6 +37,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import org.firstinspires.ftc.teamcode.SharedFiles.ServoControl;
+
+import static com.sun.tools.doclint.Entity.or;
 
 @TeleOp(name="8514 Teleop", group="Iterative Opmode")
 public class Teleop8514 extends OpMode {
@@ -73,8 +76,6 @@ public class Teleop8514 extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
         linearSlide = hardwareMap.get(DcMotor.class, "linearSlide");
-        left = hardwareMap.get(Servo.class, "leftServo");
-        right = hardwareMap.get(Servo.class, "rightServo");
         slideClawJoint = hardwareMap.get(Servo.class, "clawJoint");
         slideClaw = hardwareMap.get(Servo.class, "slideClaw");
        // Autonomous = hardwareMap.get(Servo.class, "autoServo");
