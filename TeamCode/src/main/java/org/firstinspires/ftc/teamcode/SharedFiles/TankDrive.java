@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.SharedFiles;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple.Direction;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 /**
@@ -19,8 +20,37 @@ public class TankDrive {
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
         backRight = hardwareMap.get(DcMotor.class, "backRight");
     }
+    public void setDirection(){
+        frontLeft.setDirection(Direction.FORWARD);
+        frontRight.setDirection(Direction.FORWARD);
+        backLeft.setDirection(Direction.FORWARD);
+        backRight.setDirection(Direction.FORWARD);
+    }
 
     public void driveForward(){
+        frontLeft.setPower(-1.0);
+        frontRight.setPower(1.0);
+        backLeft.setPower(-1.0);
+        backRight.setPower(1.0);
+    }
 
+    public void driveBackward(){
+        frontLeft.setPower(1.0);
+        frontRight.setPower(-1.0);
+        backLeft.setPower(1.0);
+        backRight.setPower(-1.0);
+    }
+
+    public void turnLeft(){
+        frontLeft.setPower(1.0);
+        frontRight.setPower(1.0);
+        backLeft.setPower(1.0);
+        backRight.setPower(1.0);
+    }
+    public void turnRight(){
+        frontLeft.setPower(-1.0);
+        frontRight.setPower(-1.0);
+        backLeft.setPower(-1.0);
+        backRight.setPower(-1.0);
     }
 }
