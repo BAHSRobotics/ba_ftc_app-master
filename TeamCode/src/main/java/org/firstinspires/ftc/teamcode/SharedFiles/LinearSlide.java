@@ -22,8 +22,7 @@ public class LinearSlide {
 
     }
     public void extendOnce() {
-        /*spool.setTargetPosition(currentEncoderValue + 1650); // Turn the motor 1 revolution
-        currentEncoderValue = spool.getCurrentPosition();*/
+
         spool.setTargetPosition(n * revolution);
         n++;
         spool.setPower(0.5);
@@ -35,11 +34,14 @@ public class LinearSlide {
     }
     public void extendFull() {
         spool.setTargetPosition(4 * revolution);
-        n= 4;
+        n = 4;
     }
     public void retractFull(){
         spool.setTargetPosition(0);
         n= 0;
+    }
+    public int getEncoder() {
+        return spool.getCurrentPosition();
     }
 
 

@@ -64,92 +64,40 @@ public class Teleop10526 extends OpMode {
     @Override
     public void init() {
 
-
         telemetry.addData("Status", "Initializing");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
 
-        chainMotor = hardwareMap.get(DcMotor.class, "chainMotor");
         catcher.openClaw();
-        chainMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
-
-        n = 1;
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
-        chainMotor.setDirection(DcMotor.Direction.FORWARD);
 
         telemetry.clear();
         telemetry.addData("Status", "Initialized");
-        telemetry.addData("Encoder Position", chainMotor.getCurrentPosition());
     }
 
     @Override
     public void start() {
         runtime.reset();
-        chainMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        telemetry.addData("N-value", n);
     }
 
     @Override
     public void loop() {
         if (gamepad1.left_bumper) {
-            backLeft.setPower(1.0);
-            backRight.setPower(1.0);
+
         } else if (gamepad1.right_bumper) {
-            backLeft.setPower(-1.0);
-            backRight.setPower(-1.0);
 
         } else if (gamepad1.dpad_down) {
-            backLeft.setPower(1.0);
-            backRight.setPower(-1.0);
-        }
-        else if (gamepad1.a && aFlag) {
-            chainMotor.setTargetPosition(100 * n);
-            if (n < 4) {
-                n++;
-                chainMotor.setPower(0.5);
-                telemetry.addData("N-value", n);
-            }
-            aFlag = false;
-        }
 
-        // Opens Servo's
-        else if (gamepad1.b && bFlag) {
-            if (n > 2) {
-                --n;
-                telemetry.addData("N-value", n);
-
-            } //decrement
-            chainMotor.setTargetPosition(100 * n);
-            chainMotor.setPower(0.5);
-            bFlag = false;
-
-        } else if (gamepad1.x && xFlag) {
-            chainMotor.setTargetPosition(10);
-            chainMotor.setPower(.5);
-            n = 4;
-        } else if (gamepad1.y && yFlag) {
-            chainMotor.setTargetPosition(0);
-            chainMotor.setPower(.5);
-            n = 1;
         } else if (gamepad1.dpad_up) {
-            backLeft.setPower(-1.0);
-            backRight.setPower(1.0);
-        } else if (!aFlag ) {
-            aFlag = true;
 
-        } else if (!bFlag) {
-            bFlag = true;
-        } else if (!xFlag) {
-            xFlag = true;
-        } else if (!yFlag) {
-            yFlag = true;
+        } else if (gamepad1.a) {
+
+        } else if (gamepad1.b) {
+
+        } else if (gamepad1.x) {
+
+        } else if (gamepad1.y) {
+
         } else {
 
-            backLeft.setPower(0);
-            backRight.setPower(0);
-            chainMotor.setPower(0);
         }
     }
 
