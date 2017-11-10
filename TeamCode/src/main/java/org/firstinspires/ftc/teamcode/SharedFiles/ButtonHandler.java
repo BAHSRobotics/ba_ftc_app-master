@@ -7,26 +7,40 @@ import com.qualcomm.robotcore.hardware.Gamepad;
  */
 
 public class ButtonHandler {
-    public ButtonHandler() {
-        boolean wasPressed = false;
-    }
+    private boolean wasPressed;
+    public ButtonHandler() {wasPressed = false;}
 
     public boolean isPressed(boolean button) {
         return button;
     }
     public boolean isHeld(boolean button) {
-        boolean wasPressed = false;
-        if (button && !wasPressed) {
-            wasPressed = true;
-        } else if (button && wasPressed) {
-            return true;
+        if (button && !wasPressed) { //if button is pressed
+            wasPressed = true;  //tell the next iteration it was pressed
         }
+        else if (!button) {
+            wasPressed = false;
+        }
+        return button && wasPressed;
+    }
+    public boolean isAbsolutelyPressed(boolean button) {
+        return isPressed(button) && !isHeld(button);
     }
     public boolean isPressed(float button) {
         return button > 0.2;
     }
-    public boolean isHeld(float button) {
 
+    public boolean isHeld(float button) {
+        boolean buttonBool = button > .2;
+        if (buttonBool && !wasPressed) { //if button is pressed
+            wasPressed = true;  //tell the next iteration it was pressed
+        }
+        else if (!buttonBool) {
+            wasPressed = false;
+        }
+        return buttonBool && wasPressed;
+    }
+    public boolean isAbsolutelyPressed(float button) {
+        return isPressed(button) && !isHeld(button);
     }
 
 }

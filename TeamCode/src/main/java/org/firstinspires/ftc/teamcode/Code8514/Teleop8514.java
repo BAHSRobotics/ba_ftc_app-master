@@ -131,17 +131,17 @@ public class Teleop8514 extends OpMode {
 
         }
         else if (gamepad1.right_bumper) {
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(-1.0);
-            backLeft.setPower(-1.0);
-            backRight.setPower(-1.0);
+            //frontLeft.setPower(-1.0);
+            //frontRight.setPower(-1.0);
+            //backLeft.setPower(-1.0);
+            //backRight.setPower(-1.0);
 
         }
         else if (gamepad1.dpad_down) {
-            frontLeft.setPower(1.0);
-            frontRight.setPower(-1.0);
-            backLeft.setPower(1.0);
-            backRight.setPower(-1.0);
+//            frontLeft.setPower(1.0);
+//            frontRight.setPower(-1.0);
+//            backLeft.setPower(1.0);
+//            backRight.setPower(-1.0);
 
         }
         // Closes Servos
@@ -180,16 +180,16 @@ public class Teleop8514 extends OpMode {
             slideClaw.setPosition(1.0);
         }
         else if (gamepad1.dpad_up) {
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(1.0);
-            backLeft.setPower(-1.0);
-            backRight.setPower(1.0);
-        }
-        else {
-            frontLeft.setPower(0);
-            frontRight.setPower(0);
-            backLeft.setPower(0);
-            backRight.setPower(0);
+//            frontLeft.setPower(-1.0);
+//            frontRight.setPower(1.0);
+//            backLeft.setPower(-1.0);
+//            backRight.setPower(1.0);
+//        }
+        }else {
+//            frontLeft.setPower(0);
+//            frontRight.setPower(0);
+//            backLeft.setPower(0);
+//            backRight.setPower(0);
         }
     }
 

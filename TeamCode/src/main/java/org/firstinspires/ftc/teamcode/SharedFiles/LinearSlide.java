@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
 
+//TODO make more Polymorphic
+
+
 /**
  * Created by 4014465 on 11/8/2017.
  */

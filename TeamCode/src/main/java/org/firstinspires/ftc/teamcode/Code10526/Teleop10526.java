@@ -31,30 +31,20 @@ package org.firstinspires.ftc.teamcode.Code10526;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.SharedFiles.GlyphCatcher;
+import org.firstinspires.ftc.teamcode.SharedFiles.ButtonHandler;
+import org.firstinspires.ftc.teamcode.SharedFiles.TankDrive;
+import org.firstinspires.ftc.teamcode.SharedFiles.LinearSlide;
 
-/**
- * This file contains an example of an iterative (Non-Linear) "OpMode".
- *
- * @TeleOp(name="Basic: Iterative OpMode", group="Iterative Opmode")
- * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
- * The names of OpModes appear on the menu of the FTC Driver Station.
- * When an selection is made from the menu, the corresponding OpMode
- * class is instantiated on the Robot Controller and executed.
- * <p>
- * This particular OpMode just executes a basic Tank Drive Teleop for a two wheeled robot
- * It includes all the skeletal structure that all iterative OpModes contain.
- * <p>
- * Use Android Studios to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- */
 @TeleOp(name = "10526 Driver", group = "Iterative Opmode")
 public class Teleop10526 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher(hardwareMap);
+    private TankDrive wheels = new TankDrive(hardwareMap);
+    private LinearSlide lift = new LinearSlide(hardwareMap);
+    private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
     public void init_loop() {
@@ -63,12 +53,12 @@ public class Teleop10526 extends OpMode {
 
     @Override
     public void init() {
+        catcher.openClaw();
+        wheels.setDirection();
+
 
         telemetry.addData("Status", "Initializing");
-
-        catcher.openClaw();
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
-
         telemetry.clear();
         telemetry.addData("Status", "Initialized");
     }
@@ -80,25 +70,35 @@ public class Teleop10526 extends OpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.left_bumper) {
-
-        } else if (gamepad1.right_bumper) {
-
-        } else if (gamepad1.dpad_down) {
-
-        } else if (gamepad1.dpad_up) {
-
-        } else if (gamepad1.a) {
-
-        } else if (gamepad1.b) {
-
-        } else if (gamepad1.x) {
-
-        } else if (gamepad1.y) {
-
-        } else {
-
+        if (buttonHandler.isPressed(gamepad1.dpad_up)) {
+            wheels.driveForward();
         }
+        else if (buttonHandler.isPressed(gamepad1.dpad_down)) {
+            wheels.driveBackward();
+        }
+        else if (buttonHandler.isPressed(gamepad1.left_bumper)) {
+            wheels.turnLeft();
+        }
+        else if (buttonHandler.isPressed(gamepad1.right_bumper)) {
+            wheels.turnRight();
+        }
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a)) {
+            catcher.closeClaw();
+            lift.extendOnce();
+        }
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b)) {
+            catcher.openClaw();
+            lift.retractOnce();
+        }
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.x)) {
+            catcher.closeClaw();
+            lift.extendFull();
+        }
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.y)) {
+            catcher.openClaw();
+            lift.retractFull();
+        }
+
     }
 
     /*
