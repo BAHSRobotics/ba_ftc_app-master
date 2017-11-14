@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode.Code10526;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -37,11 +39,14 @@ import org.firstinspires.ftc.teamcode.SharedFiles.ButtonHandler;
 import org.firstinspires.ftc.teamcode.SharedFiles.TankDrive;
 import org.firstinspires.ftc.teamcode.SharedFiles.LinearSlide;
 
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
+
+
 @TeleOp(name = "10526 Driver", group = "Iterative Opmode")
 public class Teleop10526 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private GlyphCatcher catcher = new GlyphCatcher(null, null); //AAhhh
+    private GlyphCatcher catcher = new GlyphCatcher();
     private TankDrive wheels = new TankDrive();
     private LinearSlide lift = new LinearSlide();
     private ButtonHandler buttonHandler = new ButtonHandler();
@@ -54,8 +59,9 @@ public class Teleop10526 extends OpMode {
     @Override
     public void init() {
         catcher.init(hardwareMap);
+        wheels.init(hardwareMap);
+        lift.init(hardwareMap);
         catcher.openClaw();
-        wheels.setDirection();
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -82,23 +88,29 @@ public class Teleop10526 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.right_bumper)) {
             wheels.turnRight();
         }
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a)) {
+        else if (buttonHandler.isPressed(gamepad2.a)) {
+            Log.v(TAG, "loop: A pressed");
             catcher.closeClaw();
             lift.extendOnce();
         }
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b)) {
+        else if (buttonHandler.isPressed(gamepad2.b)) {
+            Log.v(TAG, "loop: B pressed");
             catcher.openClaw();
             lift.retractOnce();
         }
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.x)) {
+        else if (buttonHandler.isPressed(gamepad2.x)) {
+            Log.v(TAG, "loop: X pressed");
             catcher.closeClaw();
             lift.extendFull();
         }
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.y)) {
+        else if (buttonHandler.isPressed(gamepad2.y)) {
+            Log.v(TAG, "loop: Y pressed");
             catcher.openClaw();
             lift.retractFull();
         }
-
+        else {
+            wheels.stop();
+        }
     }
 
     /*

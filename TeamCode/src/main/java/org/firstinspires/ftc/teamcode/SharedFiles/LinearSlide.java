@@ -1,9 +1,12 @@
 package org.firstinspires.ftc.teamcode.SharedFiles;
 
+import android.util.Log;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 
 //TODO make more Polymorphic
 
@@ -18,32 +21,35 @@ public class LinearSlide {
     private int revolution = 1650;
     private int n; //number of revolutions
 
-    public LinearSlide(HardwareMap hardwareMap) {
+    public LinearSlide() {
+       spool = null;
+    }
+    public void init(HardwareMap hardwareMap) {
+        spool = hardwareMap.get(DcMotor.class, "spool");
         spool.setMode(STOP_AND_RESET_ENCODER);
         spool.setMode(RUN_TO_POSITION);
-
-    }
-    public void init() {
-        spool = hardwareMap.get(DcMotor.class, "spool");
     }
     public void extendOnce() {
-
+        Log.v(TAG, "extendOnce called");
         spool.setTargetPosition(n * revolution);
         n++;
         spool.setPower(0.5);
     }
     public void retractOnce() {
+        Log.v(TAG, "retractOnce called");
         n--;
         spool.setTargetPosition(n * revolution);
         spool.setPower(0.5);
     }
     public void extendFull() {
+        Log.v(TAG, "extendFull called");
         spool.setTargetPosition(4 * revolution);
         n = 4;
     }
     public void retractFull(){
+        Log.v(TAG, "retractFull called");
         spool.setTargetPosition(0);
-        n= 0;
+        n = 0;
     }
     public int getEncoder() {
         return spool.getCurrentPosition();
