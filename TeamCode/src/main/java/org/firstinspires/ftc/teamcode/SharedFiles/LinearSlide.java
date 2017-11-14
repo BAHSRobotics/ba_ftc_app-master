@@ -19,10 +19,12 @@ public class LinearSlide {
     private int n; //number of revolutions
 
     public LinearSlide(HardwareMap hardwareMap) {
-        spool = hardwareMap.get(DcMotor.class, "spool");
         spool.setMode(STOP_AND_RESET_ENCODER);
         spool.setMode(RUN_TO_POSITION);
 
+    }
+    public void init() {
+        spool = hardwareMap.get(DcMotor.class, "spool");
     }
     public void extendOnce() {
 

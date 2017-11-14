@@ -15,10 +15,10 @@ public class TankDrive {
     private DcMotor backRight = null;
 
     public TankDrive(HardwareMap hardwareMap){
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        this.frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        this.frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        this.backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        this.backRight = hardwareMap.get(DcMotor.class, "backRight");
     }
     public void setDirection(){
         frontLeft.setDirection(Direction.FORWARD);

@@ -1,6 +1,5 @@
 package org.firstinspires.ftc.teamcode.SharedFiles;
 
-import com.qualcomm.robotcore.hardware.Gamepad;
 
 /**
  * Created by 4014465 on 11/9/2017.

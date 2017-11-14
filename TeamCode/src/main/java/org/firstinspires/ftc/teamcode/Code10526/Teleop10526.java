@@ -41,9 +41,9 @@ import org.firstinspires.ftc.teamcode.SharedFiles.LinearSlide;
 public class Teleop10526 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private GlyphCatcher catcher = new GlyphCatcher(hardwareMap);
-    private TankDrive wheels = new TankDrive(hardwareMap);
-    private LinearSlide lift = new LinearSlide(hardwareMap);
+    private GlyphCatcher catcher = new GlyphCatcher(null, null); //AAhhh
+    private TankDrive wheels = new TankDrive();
+    private LinearSlide lift = new LinearSlide();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
@@ -53,9 +53,9 @@ public class Teleop10526 extends OpMode {
 
     @Override
     public void init() {
+        catcher.init(hardwareMap);
         catcher.openClaw();
         wheels.setDirection();
-
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
