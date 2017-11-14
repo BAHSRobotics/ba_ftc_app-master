@@ -23,7 +23,9 @@ public class ButtonHandler {
         return button && wasPressed;
     }
     public boolean isAbsolutelyPressed(boolean button) { //Broken: returns true more than expected
-        return isPressed(button) && !isHeld(button);
+        if (button && !wasPressed) {
+            wasPressed = 
+        }
     }
     public boolean isPressed(float button) {
         return button > 0.2;

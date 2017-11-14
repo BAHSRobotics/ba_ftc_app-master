@@ -39,20 +39,26 @@ public class LinearSlide {
         Log.v(TAG, "retractOnce called");
         n--;
         spool.setTargetPosition(n * revolution);
-        spool.setPower(0.5);
+        spool.setPower(-0.5);
     }
     public void extendFull() {
         Log.v(TAG, "extendFull called");
-        spool.setTargetPosition(4 * revolution);
-        n = 4;
+        n = 3;
+        spool.setTargetPosition(n * revolution);
+        spool.setPower(.5);
     }
     public void retractFull(){
         Log.v(TAG, "retractFull called");
         spool.setTargetPosition(0);
         n = 0;
+        spool.setPower(-.5);
     }
     public int getEncoder() {
         return spool.getCurrentPosition();
+    }
+    public int getTarget() {return spool.getTargetPosition();}
+    public void stop() {
+        spool.setPower(0);
     }
 
 

@@ -37,4 +37,5 @@ public class GlyphCatcher {
         leftServo.setPosition(1.0);
         rightServo.setPosition(0.0);
     }
+
 }
