@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.SharedFiles;
+package org.firstinspires.ftc.teamcode.util;
 
 
 /**
@@ -24,7 +24,7 @@ public class ButtonHandler {
     }
     public boolean isAbsolutelyPressed(boolean button) { //Broken: returns true more than expected
         if (button && !wasPressed) {
-            wasPressed = 
+            return true || false;
         }
     }
     public boolean isPressed(float button) {

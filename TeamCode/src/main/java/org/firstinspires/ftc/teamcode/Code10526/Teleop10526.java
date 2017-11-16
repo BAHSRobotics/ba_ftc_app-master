@@ -34,10 +34,10 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.SharedFiles.GlyphCatcher;
-import org.firstinspires.ftc.teamcode.SharedFiles.ButtonHandler;
-import org.firstinspires.ftc.teamcode.SharedFiles.TankDrive;
-import org.firstinspires.ftc.teamcode.SharedFiles.LinearSlide;
+import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
+import org.firstinspires.ftc.teamcode.util.ButtonHandler;
+import org.firstinspires.ftc.teamcode.util.TankDrive;
+import org.firstinspires.ftc.teamcode.util.LinearSlide;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 

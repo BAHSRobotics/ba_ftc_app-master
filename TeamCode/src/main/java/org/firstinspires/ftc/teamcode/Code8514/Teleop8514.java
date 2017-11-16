@@ -33,15 +33,9 @@ import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cGyro;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.IntegratingGyroscope;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.SharedFiles.GlyphCatcher;
-import org.firstinspires.ftc.teamcode.SharedFiles.TankDrive;
-
-import static android.R.attr.height;
-import static com.sun.tools.doclint.Entity.or;
 
 @TeleOp(name="8514 Teleop", group="Iterative Opmode")
 public class Teleop8514 extends OpMode {

@@ -48,9 +48,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.firstinspires.ftc.teamcode.SharedFiles.Constants;
 
-import static org.firstinspires.ftc.teamcode.SharedFiles.Constants.VUFORIAKEY;
+import static org.firstinspires.ftc.teamcode.util.Constants.VUFORIAKEY;
 
 /**
  * This 2016-2017 OpMode illustrates the basics of using the Vuforia localizer to determine
