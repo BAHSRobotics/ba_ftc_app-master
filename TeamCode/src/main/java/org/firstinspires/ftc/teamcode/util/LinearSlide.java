@@ -34,12 +34,18 @@ public class LinearSlide {
         spool.setTargetPosition(n * revolution);
         n++;
         spool.setPower(0.5);
+        if (encoderWithinBounds()) {
+            stop();
+        }
     }
     public void retractOnce() {
         Log.v(TAG, "retractOnce called");
         n--;
         spool.setTargetPosition(n * revolution);
         spool.setPower(-0.5);
+        if (encoderWithinBounds()) {
+            stop();
+        }
     }
     public void extendFull() {
         Log.v(TAG, "extendFull called");
@@ -57,6 +63,9 @@ public class LinearSlide {
         return spool.getCurrentPosition();
     }
     public int getTarget() {return spool.getTargetPosition();}
+    public boolean encoderWithinBounds() {
+        return getEncoder() < getTarget() + 15 && getTarget() - 15 < getEncoder();
+    }
     public void stop() {
         spool.setPower(0);
     }
