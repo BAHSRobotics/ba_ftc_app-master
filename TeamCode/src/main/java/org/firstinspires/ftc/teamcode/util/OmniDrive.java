@@ -45,10 +45,16 @@ public class OmniDrive {
             backRight.setPower(-1.0);
         }
         public void driveLeft() {
-
+            frontLeft.setPower(-1.0);
+            frontRight.setPower(-1.0);
+            backLeft.setPower(1.0);
+            backRight.setPower(1.0);
         }
         public void driveRight() {
-
+            frontLeft.setPower(1.0);
+            frontRight.setPower(1.0);
+            backLeft.setPower(-1.0);
+            backRight.setPower(-1.0);
         }
         public void turnLeft(){
             frontLeft.setPower(1.0);
@@ -68,6 +74,5 @@ public class OmniDrive {
             backLeft.setPower(0);
             backRight.setPower(0);
         }
-    }
 
 }
