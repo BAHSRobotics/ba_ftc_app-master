@@ -41,7 +41,7 @@ import org.firstinspires.ftc.teamcode.util.TankDrive;
 import org.firstinspires.ftc.teamcode.util.LinearSlide;
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
-
+//y no work
 
 @TeleOp(name = "OmniDrive TeleOp", group = "Iterative Opmode")
 public class Teleop8514 extends OpMode {
