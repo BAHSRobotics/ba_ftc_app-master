@@ -18,7 +18,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 public class LinearSlide {
     private DcMotor spool;
     //private int currentEncoderValue;
-    private int revolution = 1650;
+    private static final int REVOLUTION = 1650;
     private int n; //number of revolutions
 
     public LinearSlide() {
@@ -31,7 +31,7 @@ public class LinearSlide {
     }
     public void extendOnce() {
         Log.v(TAG, "extendOnce called");
-        spool.setTargetPosition(n * revolution);
+        spool.setTargetPosition(n * REVOLUTION);
         n++;
         spool.setPower(0.5);
         if (encoderWithinBounds()) {
@@ -41,7 +41,7 @@ public class LinearSlide {
     public void retractOnce() {
         Log.v(TAG, "retractOnce called");
         n--;
-        spool.setTargetPosition(n * revolution);
+        spool.setTargetPosition(n * REVOLUTION);
         spool.setPower(-0.5);
         if (encoderWithinBounds()) {
             stop();
@@ -50,7 +50,7 @@ public class LinearSlide {
     public void extendFull() {
         Log.v(TAG, "extendFull called");
         n = 3;
-        spool.setTargetPosition(n * revolution);
+        spool.setTargetPosition(n * REVOLUTION);
         spool.setPower(.5);
     }
     public void retractFull(){

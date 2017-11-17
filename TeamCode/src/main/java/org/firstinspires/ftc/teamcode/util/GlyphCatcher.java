@@ -34,8 +34,8 @@ public class GlyphCatcher {
     }
     public void closeClaw() {
         Log.v(TAG, "closeClaw called");
-        leftServo.setPosition(1.0);
-        rightServo.setPosition(0.0);
+        leftServo.setPosition(0.66);
+        rightServo.setPosition(0.33);
     }
 
 }

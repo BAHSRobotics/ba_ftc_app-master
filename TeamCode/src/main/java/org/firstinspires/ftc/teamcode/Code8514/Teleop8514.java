@@ -43,7 +43,7 @@ import org.firstinspires.ftc.teamcode.util.LinearSlide;
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 
 
-@TeleOp(name = "8514 Driver", group = "Iterative Opmode")
+@TeleOp(name = "OmniDrive TeleOp", group = "Iterative Opmode")
 public class Teleop8514 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
