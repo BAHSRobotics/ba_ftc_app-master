@@ -39,7 +39,7 @@ import org.firstinspires.ftc.teamcode.util.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.OmniDrive;
 //y no work
 
-@TeleOp(name = "OmniDrive TeleOp", group = "Iterative Opmode")
+@TeleOp(name = "Solo OmniDrive TeleOp", group = "Iterative Opmode")
 public class SingleDriverTeleop8514 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();

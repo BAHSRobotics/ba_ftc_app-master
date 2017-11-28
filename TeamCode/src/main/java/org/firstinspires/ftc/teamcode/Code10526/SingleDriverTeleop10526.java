@@ -38,7 +38,7 @@ import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
 import org.firstinspires.ftc.teamcode.util.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.TankDrive;
 
-@TeleOp(name = "Tank Drive TeleOp", group = "Iterative Opmode")
+@TeleOp(name = "Solo Tank Drive TeleOp", group = "Iterative Opmode")
 public class SingleDriverTeleop10526 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
