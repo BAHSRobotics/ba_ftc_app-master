@@ -79,14 +79,14 @@ public class Teleop8514 extends OpMode {
     public void loop() {
         if      (buttonHandler.isPressed(gamepad1.dpad_up))         wheels.driveForward();
         else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_left))       wheels.driveLeft();
-        else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveRight();
+        else if (buttonHandler.isPressed(gamepad1.dpad_left))       wheels.driveRight();
+        else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-//      else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
-//      else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
-        else if (buttonHandler.isPressed(gamepad2.left_trigger))    lift.retractFull();
-        else if (buttonHandler.isPressed(gamepad2.right_trigger))   lift.extendFull();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
+        else if (gamepad2.left_trigger > 0.2)    lift.retractFull();
+        else if (gamepad2.right_trigger > 0.2)   lift.extendFull();
         else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
         else                                                        wheels.stop();

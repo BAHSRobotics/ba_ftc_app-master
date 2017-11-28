@@ -30,17 +30,15 @@ public class LinearSlide {
         spool.setMode(RUN_TO_POSITION);
     }
     public void extendOnce() {
-        Log.v(TAG, "extendOnce called");
+        ++n;
         spool.setTargetPosition(n * REVOLUTION);
-        n++;
         spool.setPower(0.5);
         if (encoderWithinBounds()) {
             stop();
         }
     }
     public void retractOnce() {
-        Log.v(TAG, "retractOnce called");
-        n--;
+        --n;
         spool.setTargetPosition(n * REVOLUTION);
         spool.setPower(-0.5);
         if (encoderWithinBounds()) {
@@ -48,23 +46,21 @@ public class LinearSlide {
         }
     }
     public void extendFull() {
-        Log.v(TAG, "extendFull called");
         n = 3;
         spool.setTargetPosition(n * REVOLUTION);
-        spool.setPower(.5);
+        spool.setPower(1.0);
     }
     public void retractFull(){
-        Log.v(TAG, "retractFull called");
-        spool.setTargetPosition(0);
         n = 0;
-        spool.setPower(-.5);
+        spool.setTargetPosition(n * REVOLUTION);
+        spool.setPower(-1.0);
     }
     public int getEncoder() {
         return spool.getCurrentPosition();
     }
     public int getTarget() {return spool.getTargetPosition();}
     public boolean encoderWithinBounds() {
-        return getEncoder() < getTarget() + 15 && getTarget() - 15 < getEncoder();
+        return (getEncoder() < getTarget() + 15) && (getTarget() - 15 < getEncoder());
     }
     public void stop() {
         spool.setPower(0);

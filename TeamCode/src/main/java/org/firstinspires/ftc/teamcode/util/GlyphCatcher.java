@@ -18,7 +18,6 @@ public class GlyphCatcher {
     private Servo leftServo;
     private Servo rightServo;
 
-
     public GlyphCatcher() {
         leftServo = null;
         rightServo = null;
@@ -29,13 +28,12 @@ public class GlyphCatcher {
     }
     public void openClaw() {
         Log.v(TAG, "openClaw called");
-        leftServo.setPosition(0.0);
-        rightServo.setPosition(1.0);
+        leftServo.setPosition(0.33);
+        rightServo.setPosition(0.66);
     }
     public void closeClaw() {
         Log.v(TAG, "closeClaw called");
-        leftServo.setPosition(0.66);
-        rightServo.setPosition(0.33);
+        leftServo.setPosition(1.0);
+        rightServo.setPosition(0.0 );
     }
-
 }

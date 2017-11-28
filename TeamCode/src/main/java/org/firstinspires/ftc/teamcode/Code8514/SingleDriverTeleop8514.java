@@ -27,26 +27,24 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Code10526;
-
-import android.util.Log;
+package org.firstinspires.ftc.teamcode.Code8514;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
+
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-import org.firstinspires.ftc.teamcode.util.TankDrive;
+import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
 import org.firstinspires.ftc.teamcode.util.LinearSlide;
+import org.firstinspires.ftc.teamcode.util.OmniDrive;
+//y no work
 
-import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
-
-@TeleOp(name = "Tank Drive TeleOp", group = "Iterative Opmode")
-public class Teleop10526 extends OpMode {
+@TeleOp(name = "OmniDrive TeleOp", group = "Iterative Opmode")
+public class SingleDriverTeleop8514 extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
-    private TankDrive wheels = new TankDrive();
+    private OmniDrive wheels = new OmniDrive();
     private LinearSlide lift = new LinearSlide();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
@@ -77,14 +75,16 @@ public class Teleop10526 extends OpMode {
     public void loop() {
         if      (buttonHandler.isPressed(gamepad1.dpad_up))         wheels.driveForward();
         else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
+        else if (buttonHandler.isPressed(gamepad1.dpad_left))       wheels.driveRight();
+        else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
-        else if (gamepad2.left_trigger > 0.2)    lift.retractFull();
-        else if (gamepad2.right_trigger > 0.2)   lift.extendFull();
-        else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
-        else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
+        else if (gamepad1.left_trigger > 0.2)    lift.retractFull();
+        else if (gamepad1.right_trigger > 0.2)   lift.extendFull();
+        else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
+        else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
         else                                                        wheels.stop();
     }
 
