@@ -9,6 +9,6 @@ import com.qualcomm.robotcore.hardware.GyroSensor;
 public class GyroHandler {
     private GyroSensor gyro = null;
     public GyroHandler() {
-
+        gyro =
     }
 }
