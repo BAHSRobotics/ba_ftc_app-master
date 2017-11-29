@@ -109,7 +109,7 @@ public class AutonomousMode extends OpMode
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
         runtime.startTimeNanoseconds();
-        while (getRuntime()<6000){
+        while (getRuntime()<5000){
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
