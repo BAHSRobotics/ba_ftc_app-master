@@ -63,7 +63,6 @@ public class Teleop10526 extends OpMode {
         catcher.openClaw();
 
         telemetry.addData("Status", "Initializing");
-        telemetry.log().add("Gyro Calibrating. Do Not Move!");
         telemetry.clear();
         telemetry.addData("Status", "Initialized");
     }
