@@ -83,8 +83,8 @@ public class Teleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
-        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
         else if (gamepad2.left_trigger > 0.2)    lift.retractFull();
         else if (gamepad2.right_trigger > 0.2)   lift.extendFull();
         else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
