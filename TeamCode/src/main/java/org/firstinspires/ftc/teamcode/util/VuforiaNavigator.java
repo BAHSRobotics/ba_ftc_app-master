@@ -68,8 +68,10 @@ public class VuforiaNavigator extends VuforiaHandler {
                         AngleUnit.DEGREES, -90, 0, 0));
         RobotLog.ii(TAG, "phone=%s", format(phoneLocationOnRobot));
 
-        ((VuforiaTrackableDefaultListener) redTarget.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-        ((VuforiaTrackableDefaultListener) blueTarget.getListener()).setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        ((VuforiaTrackableDefaultListener) redTarget.getListener())
+                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        ((VuforiaTrackableDefaultListener) blueTarget.getListener())
+                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
 /*
          * A brief tutorial: here's how all the math is going to work:
          *
