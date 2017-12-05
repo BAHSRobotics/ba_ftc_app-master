@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
 import org.firstinspires.ftc.teamcode.util.OmniDrive;
+import org.firstinspires.ftc.teamcode.util.RelicPincher;
 import org.firstinspires.ftc.teamcode.util.TankDrive;
 import org.firstinspires.ftc.teamcode.util.LinearSlide;
 
@@ -51,6 +52,7 @@ public class Teleop8514 extends OpMode {
     private OmniDrive wheels = new OmniDrive();
     private LinearSlide lift = new LinearSlide();
     private ButtonHandler buttonHandler = new ButtonHandler();
+    private RelicPincher relicPincher = new RelicPincher();
 
     @Override
     public void init_loop() {
@@ -62,6 +64,7 @@ public class Teleop8514 extends OpMode {
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
+        relicPincher.init(hardwareMap);
         catcher.openClaw();
 
         telemetry.addData("Status", "Initializing");
@@ -89,6 +92,8 @@ public class Teleop8514 extends OpMode {
         else if (gamepad2.right_trigger > 0.2)   lift.extendFull();
         else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
+        else if (buttonHandler.isPressed(gamepad1.a))               relicPincher.pinch();
+        else if (buttonHandler.isPressed(gamepad1.b))               relicPincher.lift();
         else                                                        wheels.stop();
     }
 

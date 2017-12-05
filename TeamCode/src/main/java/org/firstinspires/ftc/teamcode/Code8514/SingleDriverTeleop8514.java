@@ -37,6 +37,7 @@ import org.firstinspires.ftc.teamcode.util.ButtonHandler;
 import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
 import org.firstinspires.ftc.teamcode.util.LinearSlide;
 import org.firstinspires.ftc.teamcode.util.OmniDrive;
+import org.firstinspires.ftc.teamcode.util.RelicPincher;
 //y no work
 
 @TeleOp(name = "Solo OmniDrive TeleOp", group = "Iterative Opmode")
@@ -47,6 +48,7 @@ public class SingleDriverTeleop8514 extends OpMode {
     private OmniDrive wheels = new OmniDrive();
     private LinearSlide lift = new LinearSlide();
     private ButtonHandler buttonHandler = new ButtonHandler();
+    private RelicPincher relicPincher = new RelicPincher();
 
     @Override
     public void init_loop() {
@@ -58,7 +60,8 @@ public class SingleDriverTeleop8514 extends OpMode {
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
-        catcher.openClaw();
+        relicPincher.init(hardwareMap);
+        //catcher.openClaw();
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -79,12 +82,15 @@ public class SingleDriverTeleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
         else if (gamepad1.left_trigger > 0.2)    lift.retractFull();
         else if (gamepad1.right_trigger > 0.2)   lift.extendFull();
         else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))               relicPincher.pinch();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))               relicPincher.lift();
+        //else if (buttonHandler.isPressed(gamepad1.start))           relicSlide.extendFull();
         else                                                        wheels.stop();
     }
 
