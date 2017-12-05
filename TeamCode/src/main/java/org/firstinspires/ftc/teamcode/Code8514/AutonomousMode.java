@@ -36,6 +36,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
+import static com.sun.tools.javac.main.Option.S;
+
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
  * An OpMode is a 'program' that runs in either the autonomous or the teleop period of an FTC match.
@@ -92,6 +94,8 @@ public class AutonomousMode extends OpMode
      */
     @Override
     public void init_loop() {
+        runtime.reset();
+
     }
 
     /*
@@ -100,6 +104,13 @@ public class AutonomousMode extends OpMode
     @Override
     public void start() {
         runtime.reset();
+        runtime.startTimeNanoseconds();
+        while (runtime.nanoseconds()<30000){
+            frontLeft.setPower(-1.0);
+            frontRight.setPower(1.0);
+            backLeft.setPower(-1.0);
+            backRight.setPower(1.0);
+        }
     }
 
     /*
@@ -108,13 +119,6 @@ public class AutonomousMode extends OpMode
     @Override
     public void loop() {
         // Setup a variable for each drive wheel to save power level for telemetry
-        runtime.startTimeNanoseconds();
-        while (getRuntime()<5000){
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(1.0);
-            backLeft.setPower(-1.0);
-            backRight.setPower(1.0);
-        }
 
         // Choose to drive using either Tank Mode, or POV Mode
         // Comment out the method that's not used.  The default below is POV.
@@ -126,6 +130,8 @@ public class AutonomousMode extends OpMode
         // - This requires no math, but it is hard to drive forward slowly and keep straight.
         // leftPower  = -gamepad1.left_stick_y ;
         // rightPower = -gamepad1.right_stick_y ;
+
+
 
         // Send calculated power to wheels
 
