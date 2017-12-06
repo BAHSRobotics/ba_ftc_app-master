@@ -27,26 +27,29 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.Code8514;
+package org.firstinspires.ftc.teamcode.TeleOp;
+
+import android.util.Log;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.util.ButtonHandler;
 import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
-import org.firstinspires.ftc.teamcode.util.LinearSlide;
+import org.firstinspires.ftc.teamcode.util.ButtonHandler;
 import org.firstinspires.ftc.teamcode.util.OmniDrive;
 import org.firstinspires.ftc.teamcode.util.RelicPincher;
+import org.firstinspires.ftc.teamcode.util.TankDrive;
+import org.firstinspires.ftc.teamcode.util.LinearSlide;
+
+import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 //y no work
 
-@TeleOp(name = "Solo OmniDrive TeleOp", group = "Iterative Opmode")
-public class SingleDriverTeleop8514 extends OpMode {
+@TeleOp(name = "OmniDrive TeleOp", group = "Iterative Opmode")
+public class DoubleDriverOmni extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
     private OmniDrive wheels = new OmniDrive();
-    private LinearSlide relicArm = new LinearSlide("relicArm");
     private LinearSlide lift = new LinearSlide("spool");
     private ButtonHandler buttonHandler = new ButtonHandler();
     private RelicPincher relicPincher = new RelicPincher();
@@ -61,9 +64,8 @@ public class SingleDriverTeleop8514 extends OpMode {
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
-        relicArm.init(hardwareMap);
         relicPincher.init(hardwareMap);
-        //catcher.openClaw();
+        catcher.openClaw();
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -84,14 +86,14 @@ public class SingleDriverTeleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (gamepad1.left_trigger > 0.2)                       lift.retractToN(0);
-        else if (gamepad1.right_trigger > 0.2)                      lift.extendToN(3);
-        else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
-        else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     relicPincher.pinch();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     relicPincher.lift();
-        else if (buttonHandler.isPressed(gamepad1.start))           relicArm.extendToN(7);
-        else if (buttonHandler.isPressed(gamepad1.back))            relicArm.retractToN(0);
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
+        else if (gamepad2.left_trigger > 0.2)    lift.retractToN(3);
+        else if (gamepad2.right_trigger > 0.2)   lift.extendToN(3);
+        else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
+        else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
+        else if (buttonHandler.isPressed(gamepad1.a))               relicPincher.pinch();
+        else if (buttonHandler.isPressed(gamepad1.b))               relicPincher.lift();
         else                                                        wheels.stop();
     }
     /*

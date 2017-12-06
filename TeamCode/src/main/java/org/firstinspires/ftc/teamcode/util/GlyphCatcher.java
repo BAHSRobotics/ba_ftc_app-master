@@ -27,12 +27,10 @@ public class GlyphCatcher {
         rightServo = hardwareMap.get(Servo.class, "rightServo");
     }
     public void openClaw() {
-        Log.v(TAG, "openClaw called");
-        leftServo.setPosition(0.33);
-        rightServo.setPosition(0.66);
+        leftServo.setPosition(0.40);
+        rightServo.setPosition(0.60);
     }
     public void closeClaw() {
-        Log.v(TAG, "closeClaw called");
         leftServo.setPosition(1.0);
         rightServo.setPosition(0.0 );
     }
