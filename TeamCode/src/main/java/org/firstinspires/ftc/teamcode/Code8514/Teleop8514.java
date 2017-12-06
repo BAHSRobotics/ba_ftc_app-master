@@ -50,7 +50,7 @@ public class Teleop8514 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
     private OmniDrive wheels = new OmniDrive();
-    private LinearSlide lift = new LinearSlide();
+    private LinearSlide lift = new LinearSlide("spool");
     private ButtonHandler buttonHandler = new ButtonHandler();
     private RelicPincher relicPincher = new RelicPincher();
 
@@ -88,8 +88,8 @@ public class Teleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
         //else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
         //else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
-        else if (gamepad2.left_trigger > 0.2)    lift.retractFull();
-        else if (gamepad2.right_trigger > 0.2)   lift.extendFull();
+        else if (gamepad2.left_trigger > 0.2)    lift.retractToN(3);
+        else if (gamepad2.right_trigger > 0.2)   lift.extendToN(3);
         else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
         else if (buttonHandler.isPressed(gamepad1.a))               relicPincher.pinch();

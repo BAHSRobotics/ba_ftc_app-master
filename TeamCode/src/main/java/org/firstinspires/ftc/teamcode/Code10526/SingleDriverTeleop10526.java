@@ -44,7 +44,7 @@ public class SingleDriverTeleop10526 extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
     private TankDrive wheels = new TankDrive();
-    private LinearSlide lift = new LinearSlide();
+    private LinearSlide lift = new LinearSlide("spool");
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
@@ -76,10 +76,10 @@ public class SingleDriverTeleop10526 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
-        else if (gamepad1.left_trigger > 0.2)    lift.retractFull();
-        else if (gamepad1.right_trigger > 0.2)   lift.extendFull();
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
+        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
+        else if (gamepad1.left_trigger > 0.2)    lift.extendToN(3);
+        else if (gamepad1.right_trigger > 0.2)   lift.extendToN(3);
         else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
         else                                                        wheels.stop();
