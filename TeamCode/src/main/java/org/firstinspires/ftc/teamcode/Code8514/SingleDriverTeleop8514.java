@@ -94,7 +94,6 @@ public class SingleDriverTeleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.back))            relicArm.retractToN(0);
         else                                                        wheels.stop();
     }
-
     /*
      * Code to run ONCE after the driver hits STOP
      */

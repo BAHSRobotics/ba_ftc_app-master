@@ -97,7 +97,6 @@ public class AutonomousMode extends OpMode
         runtime.reset();
 
     }
-
     /*
      * Code to run ONCE when the driver hits PLAY
      */

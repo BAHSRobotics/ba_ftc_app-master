@@ -37,6 +37,7 @@ public class LinearSlide {
         return motor.getCurrentPosition();
     }
     public int getTarget() {return motor.getTargetPosition();}
+
     public boolean encoderWithinBounds() {
         return (getEncoder() < getTarget() + 15) && (getTarget() - 15 < getEncoder());
     }

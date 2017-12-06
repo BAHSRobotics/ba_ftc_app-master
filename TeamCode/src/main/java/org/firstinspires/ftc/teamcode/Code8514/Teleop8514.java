@@ -96,7 +96,6 @@ public class Teleop8514 extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.b))               relicPincher.lift();
         else                                                        wheels.stop();
     }
-
     /*
      * Code to run ONCE after the driver hits STOP
      */

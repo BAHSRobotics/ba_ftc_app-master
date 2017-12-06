@@ -30,5 +30,4 @@ public class RelicPincher {
         if (wrist.getPosition() == 1.0)   wrist.setPosition(0);
         else if (wrist.getPosition() == 0)  wrist.setPosition(1);
     }
-
 }

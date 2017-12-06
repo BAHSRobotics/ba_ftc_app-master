@@ -86,7 +86,6 @@ public class Teleop10526 extends OpMode {
         else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
         else                                                        wheels.stop();
     }
-
     /*
      * Code to run ONCE after the driver hits STOP
      */
