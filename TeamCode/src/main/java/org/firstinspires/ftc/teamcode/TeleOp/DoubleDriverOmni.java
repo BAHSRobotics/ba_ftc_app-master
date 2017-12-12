@@ -92,8 +92,8 @@ public class DoubleDriverOmni extends OpMode {
         else if (gamepad2.right_trigger > 0.2)   lift.extendToN(3);
         else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
-        else if (buttonHandler.isPressed(gamepad1.a))               relicPincher.pinch();
-        else if (buttonHandler.isPressed(gamepad1.b))               relicPincher.lift();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))               relicPincher.pinch();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))               relicPincher.lift();
         else                                                        wheels.stop();
     }
     /*
