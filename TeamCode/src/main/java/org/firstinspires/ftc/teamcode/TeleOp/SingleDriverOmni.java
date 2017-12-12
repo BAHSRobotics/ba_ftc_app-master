@@ -84,14 +84,14 @@ public class SingleDriverOmni extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (gamepad1.left_trigger > 0.2)                       lift.retractToN(0);
-        else if (gamepad1.right_trigger > 0.2)                      lift.extendToN(3);
+        else if (buttonHandler.isPressed(gamepad1.left_trigger))    lift.retractToN(0);
+        else if (buttonHandler.isPressed(gamepad1.right_trigger))   lift.extendToN(3);
         else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
         else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     relicPincher.pinch();
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     relicPincher.lift();
         else if (buttonHandler.isPressed(gamepad1.start))           relicArm.extendToN(7);
-        else if (buttonHandler.isPressed(gamepad1.back))            relicArm.retractToN(0);
+        else if (buttonHandler.isPressed(gamepad1.back))            relicArm.retractToN(-1);
         else                                                        wheels.stop();
     }
     /*

@@ -25,12 +25,12 @@ public class LinearSlide {
         motor.setMode(STOP_AND_RESET_ENCODER);
         motor.setMode(RUN_TO_POSITION);
     }
-    public void extendToN(double n) {
-        motor.setTargetPosition((int) n * REVOLUTION);
+    public void extendToN(int n) {
+        motor.setTargetPosition( n * REVOLUTION);
         motor.setPower(1.0);
     }
-    public void retractToN(double n) {
-        motor.setTargetPosition((int) n * REVOLUTION);
+    public void retractToN(int n) {
+        motor.setTargetPosition( n * REVOLUTION);
         motor.setPower(-1.0);
     }
     public int getEncoder() {

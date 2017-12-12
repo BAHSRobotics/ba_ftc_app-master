@@ -30,49 +30,10 @@ public class VuforiaNavigator extends VuforiaHandler {
     private Telemetry telemetry = null;
 
     public VuforiaNavigator() {
-        VuforiaTrackables stonesAndChips = vuforia.loadTrackablesFromAsset("StonesAndChips");
-        VuforiaTrackable redTarget = stonesAndChips.get(0);
-        redTarget.setName("RedTarget");  // Stones
 
-        VuforiaTrackable blueTarget = stonesAndChips.get(1);
-        blueTarget.setName("BlueTarget");  // Chips
+    }
 
-        allTrackables.addAll(stonesAndChips);
-
-        OpenGLMatrix redTargetLocationOnField = OpenGLMatrix
-                .translation(-mmFTCFieldWidth / 2, 0, 0)
-                .multiplied(
-                        Orientation.getRotationMatrix(
-                            AxesReference.EXTRINSIC, AxesOrder.XZX, AngleUnit.DEGREES,
-                            90, 90, 0
-                        )
-                );
-        redTarget.setLocation(redTargetLocationOnField);
-        RobotLog.ii(TAG, "Red Target=%s", format(redTargetLocationOnField));
-
-        OpenGLMatrix blueTargetLocationOnField = OpenGLMatrix
-                .translation(0, mmFTCFieldWidth / 2, 0)
-                .multiplied(
-                        Orientation.getRotationMatrix(
-                            AxesReference.EXTRINSIC, AxesOrder.XZX,
-                            AngleUnit.DEGREES, 90, 0, 0
-                        )
-                );
-        blueTarget.setLocation(blueTargetLocationOnField);
-        RobotLog.ii(TAG, "Blue Target=%s", format(blueTargetLocationOnField));
-
-        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
-                .translation(mmBotWidth / 2, 0, 0)
-                .multiplied(Orientation.getRotationMatrix(
-                        AxesReference.EXTRINSIC, AxesOrder.YZY,
-                        AngleUnit.DEGREES, -90, 0, 0));
-        RobotLog.ii(TAG, "phone=%s", format(phoneLocationOnRobot));
-
-        ((VuforiaTrackableDefaultListener) redTarget.getListener())
-                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-        ((VuforiaTrackableDefaultListener) blueTarget.getListener())
-                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
-/*
+    /*
          * A brief tutorial: here's how all the math is going to work:
          *
          * C = phoneLocationOnRobot  maps   phone coords -> robot coords
@@ -90,14 +51,54 @@ public class VuforiaNavigator extends VuforiaHandler {
          *
          * @see VuforiaTrackableDefaultListener#getRobotLocation()
  */
+    public void calibrate() {
+        VuforiaTrackables stonesAndChips = vuforia.loadTrackablesFromAsset("StonesAndChips");
+        VuforiaTrackable redTarget = stonesAndChips.get(0);
+        redTarget.setName("RedTarget");  // Stones
 
+        VuforiaTrackable blueTarget = stonesAndChips.get(1);
+        blueTarget.setName("BlueTarget");  // Chips
+
+        allTrackables.addAll(stonesAndChips);
+
+        OpenGLMatrix redTargetLocationOnField = OpenGLMatrix
+                .translation(-mmFTCFieldWidth / 2, 0, 0)
+                .multiplied(
+                        Orientation.getRotationMatrix(
+                                AxesReference.EXTRINSIC, AxesOrder.XZX, AngleUnit.DEGREES,
+                                90, 90, 0
+                        )
+                );
+        redTarget.setLocation(redTargetLocationOnField);
+        RobotLog.ii(TAG, "Red Target=%s", format(redTargetLocationOnField));
+
+        OpenGLMatrix blueTargetLocationOnField = OpenGLMatrix
+                .translation(0, mmFTCFieldWidth / 2, 0)
+                .multiplied(
+                        Orientation.getRotationMatrix(
+                                AxesReference.EXTRINSIC, AxesOrder.XZX,
+                                AngleUnit.DEGREES, 90, 0, 0
+                        )
+                );
+        blueTarget.setLocation(blueTargetLocationOnField);
+        RobotLog.ii(TAG, "Blue Target=%s", format(blueTargetLocationOnField));
+
+        OpenGLMatrix phoneLocationOnRobot = OpenGLMatrix
+                .translation(mmBotWidth / 2, 0, 0)
+                .multiplied(Orientation.getRotationMatrix(
+                        AxesReference.EXTRINSIC, AxesOrder.YZY,
+                        AngleUnit.DEGREES, -90, 0, 0));
+        RobotLog.ii(TAG, "phone=%s", format(phoneLocationOnRobot));
+
+        ((VuforiaTrackableDefaultListener) redTarget.getListener())
+                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
+        ((VuforiaTrackableDefaultListener) blueTarget.getListener())
+                .setPhoneInformation(phoneLocationOnRobot, parameters.cameraDirection);
         stonesAndChips.activate();
 
     }
-
     public void loopable() {
         for (VuforiaTrackable trackable : allTrackables) {
-
             telemetry.addData(trackable.getName(),
                     (
                             (VuforiaTrackableDefaultListener) trackable.getListener()).isVisible() ?
