@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import org.firstinspires.ftc.teamcode.util.VuforiaHandler;
 import org.firstinspires.ftc.teamcode.util.VuforiaNavigator;
@@ -15,7 +16,7 @@ import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
  *//*
 
 
-@Autonomous (name="VuforiaTest", group="Iterative Opmode")
+@TeleOp(name="VuforiaTest", group="Iterative Opmode")
 public class VuforiaTests extends LinearOpMode{
     VuforiaHandler vuforia = new VuforiaHandler();
     VuforiaTracker tracker = new VuforiaTracker();
@@ -26,7 +27,7 @@ public class VuforiaTests extends LinearOpMode{
         vuforia.init();
         tracker.init();
         while (true) {
-            tracker.vumarkPosition();
+            tracker.vumarkFound();
         }
     }
 }
