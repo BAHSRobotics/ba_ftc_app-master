@@ -1,13 +1,16 @@
+/*
 package org.firstinspires.ftc.teamcode.util;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+*/
 /**
  * Created by caleb on 12/7/2017.
- */
+ *//*
 
-public class RoboFactory {
+
+public class RoboFactory extends OmniDrive, TankDrive, LinearSlide, GlyphCatcher, RelicPincher{
 
     private GlyphCatcher catcher = new GlyphCatcher();
     private OmniDrive wheels = new OmniDrive();
@@ -24,22 +27,5 @@ public class RoboFactory {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
     }
-    public void driveForward() {
-        wheels.driveForward();
-    }
-    public void driveBackward() {
-        wheels.driveBackward();
-    }
-    public void turnLeft() {
-        wheels.turnLeft();
-    }
-    public void turnRight() {
-        wheels.turnRight();
-    }
-    public void driveLeft() {
-        wheels.driveLeft();
-    }
-    public void driveRight() {
-        wheels.driveRight();
-    }
 }
+*/

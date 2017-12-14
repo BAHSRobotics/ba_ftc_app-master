@@ -74,5 +74,48 @@ public class OmniDrive {
             backLeft.setPower(0);
             backRight.setPower(0);
         }
+    public void driveForwardWithEncoders(){
+        frontLeft.setPower(-1.0);
+        frontRight.setPower(1.0);
+        backLeft.setPower(-1.0);
+        backRight.setPower(1.0);
+    }
+
+    public void driveBackwardWithEncoders(){
+        frontLeft.setPower(1.0);
+        frontRight.setPower(-1.0);
+        backLeft.setPower(1.0);
+        backRight.setPower(-1.0);
+    }
+    public void driveLeftWithEncoders() {
+        frontLeft.setPower(-1.0);
+        frontRight.setPower(-1.0);
+        backLeft.setPower(1.0);
+        backRight.setPower(1.0);
+    }
+    public void driveRightWithEncoders() {
+        frontLeft.setPower(1.0);
+        frontRight.setPower(1.0);
+        backLeft.setPower(-1.0);
+        backRight.setPower(-1.0);
+    }
+    public void turnLeftWithEncoders(){
+        frontLeft.setPower(1.0);
+        frontRight.setPower(1.0);
+        backLeft.setPower(1.0);
+        backRight.setPower(1.0);
+    }
+    public void turnRightWithEncoders(){
+        frontLeft.setPower(-1.0);
+        frontRight.setPower(-1.0);
+        backLeft.setPower(-1.0);
+        backRight.setPower(-1.0);
+    }
+    public void stopEncoders() {
+        frontLeft.setPower(0);
+        frontRight.setPower(0);
+        backLeft.setPower(0);
+        backRight.setPower(0);
+    }
 
 }

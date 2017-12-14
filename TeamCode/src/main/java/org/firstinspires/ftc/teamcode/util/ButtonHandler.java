@@ -17,6 +17,7 @@ public class ButtonHandler {
     public boolean isPressed(float button) {
         return button > 0.2;
     }
+
     public boolean isAbsolutelyPressed(boolean button) {
         if (button && wasPressed)     {wasPressed = false; return true;}
         else if (button)               {wasPressed = true; return false;}

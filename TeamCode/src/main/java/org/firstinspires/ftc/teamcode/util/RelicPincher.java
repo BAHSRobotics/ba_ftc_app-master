@@ -18,16 +18,16 @@ public class RelicPincher {
     public void init(HardwareMap hardwareMap){
         wrist = hardwareMap.get(Servo.class, "wrist");
         pincher = hardwareMap.get(Servo.class, "pincher");
-        pincher.setPosition(0);
+        pincher.setPosition(.332);
         wrist.setPosition(1);
     }
     public void pinch() {
-        if (pincher.getPosition() == 1.0)   pincher.setPosition(0);
-        else if (pincher.getPosition() == 0.0)  pincher.setPosition(1);
+        if (pincher.getPosition() == 1.0)   pincher.setPosition(0.332);
+        else if (pincher.getPosition() == 0.332)  pincher.setPosition(1);
 
     }
     public void lift() {
-        if (wrist.getPosition() == 1.0)   wrist.setPosition(0);
-        else if (wrist.getPosition() == 0.0)  wrist.setPosition(1);
+        if (wrist.getPosition() == 1.0)   wrist.setPosition(0.17);
+        else if (wrist.getPosition() == 0.17)  wrist.setPosition(1);
     }
 }

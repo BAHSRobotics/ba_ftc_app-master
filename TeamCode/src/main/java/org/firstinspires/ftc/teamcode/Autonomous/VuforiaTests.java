@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 
@@ -8,9 +9,11 @@ import org.firstinspires.ftc.teamcode.util.VuforiaHandler;
 import org.firstinspires.ftc.teamcode.util.VuforiaNavigator;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
+*/
 /**
  * Created by 4014465 on 12/11/2017.
- */
+ *//*
+
 
 @Autonomous (name="VuforiaTest", group="Iterative Opmode")
 public class VuforiaTests extends LinearOpMode{
@@ -27,3 +30,4 @@ public class VuforiaTests extends LinearOpMode{
         }
     }
 }
+*/
