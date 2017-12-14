@@ -1,4 +1,3 @@
-/*
 package org.firstinspires.ftc.teamcode.util;
 
 import android.os.DropBoxManager;
@@ -19,10 +18,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
 
 import static org.firstinspires.ftc.teamcode.util.Constants.VUFORIAKEY;
 
-*/
-/**
+/*
  * Created by 4014465 on 11/30/2017.
- *//*
+ */
 
 
 public class VuforiaTracker extends VuforiaHandler{
@@ -47,9 +45,11 @@ public class VuforiaTracker extends VuforiaHandler{
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate); //check if template visible
         if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // if found (visible)
             telemetry.addData("VuMark", "%s visible", vuMark);
+            return vuMark;
         }
         else {
             //vumark not found (visible)
+            return null;
         }
     }
     public void vumarkPosition() {
@@ -76,4 +76,3 @@ public class VuforiaTracker extends VuforiaHandler{
 }
 
 
-*/
