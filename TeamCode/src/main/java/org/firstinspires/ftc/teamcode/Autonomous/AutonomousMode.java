@@ -32,9 +32,12 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.factory.RobotFactory;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import org.firstinspires.ftc.teamcode.util.RoboFactory;
 
 import static com.sun.tools.javac.main.Option.S;
 
@@ -57,10 +60,7 @@ public class AutonomousMode extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor frontLeft = null;
-    private DcMotor frontRight = null;
-    private DcMotor backLeft = null;
-    private DcMotor backRight = null;
+    private RoboFactory robot = new RoboFactory();
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -69,21 +69,7 @@ public class AutonomousMode extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
 
-        // Initialize the hardware variables. Note that the strings used here as parameters
-        // to 'get' must correspond to the names assigned during the robot configuration
-        // step (using the FTC Robot Controller app on the phone).
-        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-        backRight = hardwareMap.get(DcMotor.class, "backRight");
-
-
-        // Most robots need the motor on one side to be reversed to drive forward
-        // Reverse the motor that runs backwards when connected directly to the battery
-        frontLeft.setDirection(DcMotor.Direction.FORWARD);
-        frontRight.setDirection(DcMotor.Direction.FORWARD);
-        backLeft.setDirection(DcMotor.Direction.FORWARD);
-        backRight.setDirection(DcMotor.Direction.FORWARD);
+     robot.init(hardwareMap);
 
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -102,15 +88,14 @@ public class AutonomousMode extends OpMode
      */
     @Override
     public void start() {
+        robot.grabGlyph();
         runtime.reset();
         runtime.startTimeNanoseconds();
-        while (runtime.nanoseconds()<30000){
-            frontLeft.setPower(-1.0);
-            frontRight.setPower(1.0);
-            backLeft.setPower(-1.0);
-            backRight.setPower(1.0);
+        while (runtime.nanoseconds()<2000){
+           robot.driveForward();
         }
-        frontLeft.setPower(0);
+        robot.stopWheels();
+        robot.dropGlyph();
     }
 
     /*
