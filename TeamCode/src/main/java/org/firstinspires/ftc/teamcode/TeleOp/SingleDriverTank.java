@@ -34,17 +34,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
-import org.firstinspires.ftc.teamcode.util.LinearSlide;
-import org.firstinspires.ftc.teamcode.util.TankDrive;
+import org.firstinspires.ftc.teamcode.util.RoboFactory;
 
 @TeleOp(name = "Solo Tank Drive TeleOp", group = "Iterative Opmode")
 public class SingleDriverTank extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private GlyphCatcher catcher = new GlyphCatcher();
-    private TankDrive wheels = new TankDrive();
-    private LinearSlide lift = new LinearSlide("spool");
+    private RoboFactory robot = new RoboFactory();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
@@ -54,10 +50,7 @@ public class SingleDriverTank extends OpMode {
 
     @Override
     public void init() {
-        catcher.init(hardwareMap);
-        wheels.init(hardwareMap);
-        lift.init(hardwareMap);
-        catcher.openClaw();
+        robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -72,17 +65,15 @@ public class SingleDriverTank extends OpMode {
 
     @Override
     public void loop() {
-        if      (buttonHandler.isPressed(gamepad1.dpad_up))         wheels.driveForward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
-        else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
-        else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     lift.extendOnce(); //uh oh
-        //else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     lift.retractOnce(); //uh oh
-        else if (gamepad1.left_trigger > 0.2)    lift.extendToN(3);
-        else if (gamepad1.right_trigger > 0.2)   lift.extendToN(3);
-        else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
-        else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
-        else                                                        wheels.stop();
+        if      (buttonHandler.isPressed(gamepad1.dpad_up))         robot.driveForward();
+        else if (buttonHandler.isPressed(gamepad1.dpad_down))       robot.driveBackward();
+        else if (buttonHandler.isPressed(gamepad1.left_bumper))     robot.turnLeft();
+        else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
+        else if (gamepad1.left_trigger > 0.2)                       robot.extendRelictoN(3);
+        else if (gamepad1.right_trigger > 0.2)                      robot.retractRelictoN(0);
+        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabGlyph();
+        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropGlyph();
+        else                                                        robot.stopWheels();
     }
     /*
      * Code to run ONCE after the driver hits STOP

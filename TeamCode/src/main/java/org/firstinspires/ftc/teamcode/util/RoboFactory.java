@@ -46,6 +46,7 @@ public class RoboFactory {
     public void turnRight() {
         wheels.turnRight();
     }
+    public void stopWheels() {wheels.stop();}
     public void extendGlyphtoN(int n) {
         lift.extendToN(n);
     }

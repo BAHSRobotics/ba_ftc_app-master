@@ -110,6 +110,7 @@ public class AutonomousMode extends OpMode
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
         }
+        frontLeft.setPower(0);
     }
 
     /*

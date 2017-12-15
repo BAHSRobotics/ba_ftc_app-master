@@ -8,19 +8,19 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * Created by 4014465 on 11/16/2017.
  */
 
-public class OmniDrive {
+ class OmniDrive {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
 
-        public OmniDrive(){
+         OmniDrive(){
             frontLeft = null;
             frontRight = null;
             backLeft = null;
             backRight = null;
         }
-        public void init(HardwareMap hardwareMap) {
+         void init(HardwareMap hardwareMap) {
             frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
             frontRight = hardwareMap.get(DcMotor.class, "frontRight");
             backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -31,87 +31,87 @@ public class OmniDrive {
             backRight.setDirection(DcMotor.Direction.FORWARD);
         }
 
-        public void driveForward(){
+         void driveForward(){
             frontLeft.setPower(-1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(1.0);
         }
 
-        public void driveBackward(){
+         void driveBackward(){
             frontLeft.setPower(1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(-1.0);
         }
-        public void driveLeft() {
+         void driveLeft() {
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
         }
-        public void driveRight() {
+         void driveRight() {
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
         }
-        public void turnLeft(){
+         void turnLeft(){
             frontLeft.setPower(1.0);
             frontRight.setPower(1.0);
             backLeft.setPower(1.0);
             backRight.setPower(1.0);
         }
-        public void turnRight(){
+         void turnRight(){
             frontLeft.setPower(-1.0);
             frontRight.setPower(-1.0);
             backLeft.setPower(-1.0);
             backRight.setPower(-1.0);
         }
-        public void stop() {
+         void stop() {
             frontLeft.setPower(0);
             frontRight.setPower(0);
             backLeft.setPower(0);
             backRight.setPower(0);
         }
-    public void driveForwardWithEncoders(){
+     void driveForwardWithEncoders(){
         frontLeft.setPower(-1.0);
         frontRight.setPower(1.0);
         backLeft.setPower(-1.0);
         backRight.setPower(1.0);
     }
 
-    public void driveBackwardWithEncoders(){
+     void driveBackwardWithEncoders(){
         frontLeft.setPower(1.0);
         frontRight.setPower(-1.0);
         backLeft.setPower(1.0);
         backRight.setPower(-1.0);
     }
-    public void driveLeftWithEncoders() {
+     void driveLeftWithEncoders() {
         frontLeft.setPower(-1.0);
         frontRight.setPower(-1.0);
         backLeft.setPower(1.0);
         backRight.setPower(1.0);
     }
-    public void driveRightWithEncoders() {
+     void driveRightWithEncoders() {
         frontLeft.setPower(1.0);
         frontRight.setPower(1.0);
         backLeft.setPower(-1.0);
         backRight.setPower(-1.0);
     }
-    public void turnLeftWithEncoders(){
+     void turnLeftWithEncoders(){
         frontLeft.setPower(1.0);
         frontRight.setPower(1.0);
         backLeft.setPower(1.0);
         backRight.setPower(1.0);
     }
-    public void turnRightWithEncoders(){
+     void turnRightWithEncoders(){
         frontLeft.setPower(-1.0);
         frontRight.setPower(-1.0);
         backLeft.setPower(-1.0);
         backRight.setPower(-1.0);
     }
-    public void stopEncoders() {
+     void stopEncoders() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);

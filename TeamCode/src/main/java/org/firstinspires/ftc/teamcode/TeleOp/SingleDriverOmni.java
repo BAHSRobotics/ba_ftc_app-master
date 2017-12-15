@@ -34,22 +34,15 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
-import org.firstinspires.ftc.teamcode.util.LinearSlide;
-import org.firstinspires.ftc.teamcode.util.OmniDrive;
-import org.firstinspires.ftc.teamcode.util.RelicPincher;
+import org.firstinspires.ftc.teamcode.util.RoboFactory;
 //y no work
 
 @TeleOp(name = "Solo OmniDrive TeleOp", group = "Iterative Opmode")
 public class SingleDriverOmni extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private GlyphCatcher catcher = new GlyphCatcher();
-    private OmniDrive wheels = new OmniDrive();
-    private LinearSlide relicArm = new LinearSlide("relicArm");
-    private LinearSlide lift = new LinearSlide("spool");
+    private RoboFactory robot = new RoboFactory();
     private ButtonHandler buttonHandler = new ButtonHandler();
-    private RelicPincher relicPincher = new RelicPincher();
 
     @Override
     public void init_loop() {
@@ -58,12 +51,7 @@ public class SingleDriverOmni extends OpMode {
 
     @Override
     public void init() {
-        catcher.init(hardwareMap);
-        wheels.init(hardwareMap);
-        lift.init(hardwareMap);
-        relicArm.init(hardwareMap);
-        relicPincher.init(hardwareMap);
-        //catcher.openClaw();
+        robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -78,21 +66,21 @@ public class SingleDriverOmni extends OpMode {
 
     @Override
     public void loop() {
-        if      (buttonHandler.isPressed(gamepad1.dpad_up))         wheels.driveForward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_left))       wheels.driveRight();
-        else if (buttonHandler.isPressed(gamepad1.dpad_right))      wheels.driveLeft();
-        else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
-        else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        else if (buttonHandler.isPressed(gamepad1.left_trigger))    lift.retractToN(0);
-        else if (buttonHandler.isPressed(gamepad1.right_trigger))   lift.extendToN(3);
-        else if (buttonHandler.isPressed(gamepad1.x))               catcher.closeClaw();
-        else if (buttonHandler.isPressed(gamepad1.y))               catcher.openClaw();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     relicPincher.pinch();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     relicPincher.lift();
-        else if (buttonHandler.isPressed(gamepad1.start))           relicArm.extendToN(7);
-        else if (buttonHandler.isPressed(gamepad1.back))            relicArm.retractToN(-1);
-        else                                                        wheels.stop();
+        if      (buttonHandler.isPressed(gamepad1.dpad_up))         robot.driveForward();
+        else if (buttonHandler.isPressed(gamepad1.dpad_down))       robot.driveBackward();
+        else if (buttonHandler.isPressed(gamepad1.dpad_left))       robot.driveRight();
+        else if (buttonHandler.isPressed(gamepad1.dpad_right))      robot.driveLeft();
+        else if (buttonHandler.isPressed(gamepad1.left_bumper))     robot.turnLeft();
+        else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
+        else if (buttonHandler.isPressed(gamepad1.left_trigger))    robot.retractGlyphtoN(0);
+        else if (buttonHandler.isPressed(gamepad1.right_trigger))   robot.extendGlyphtoN(3);
+        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabGlyph();
+        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropGlyph();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     robot.toggleRelicPincher();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     robot.toggleRelicLift();
+        else if (buttonHandler.isPressed(gamepad1.start))           robot.extendRelictoN(8);
+        else if (buttonHandler.isPressed(gamepad1.back))            robot.retractRelictoN(1);
+        else                                                        robot.stopWheels();
     }
     /*
      * Code to run ONCE after the driver hits STOP

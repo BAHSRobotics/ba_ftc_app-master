@@ -34,10 +34,9 @@ import android.util.Log;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.util.GlyphCatcher;
+import org.firstinspires.ftc.teamcode.util.RoboFactory;
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-import org.firstinspires.ftc.teamcode.util.TankDrive;
-import org.firstinspires.ftc.teamcode.util.LinearSlide;
+
 
 import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 
@@ -45,9 +44,7 @@ import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerA
 public class DoubleDriverTank extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private GlyphCatcher catcher = new GlyphCatcher();
-    private TankDrive wheels = new TankDrive();
-    private LinearSlide lift = new LinearSlide("spool");
+    private RoboFactory robot = new RoboFactory();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
@@ -57,10 +54,7 @@ public class DoubleDriverTank extends OpMode {
 
     @Override
     public void init() {
-        catcher.init(hardwareMap);
-        wheels.init(hardwareMap);
-        lift.init(hardwareMap);
-        catcher.openClaw();
+        robot.init(hardwareMap);
 
         telemetry.addData("Status", "Initializing");
         telemetry.clear();
@@ -74,17 +68,15 @@ public class DoubleDriverTank extends OpMode {
 
     @Override
     public void loop() {
-        if      (buttonHandler.isPressed(gamepad1.dpad_up))         wheels.driveForward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_down))       wheels.driveBackward();
-        else if (buttonHandler.isPressed(gamepad1.left_bumper))     wheels.turnLeft();
-        else if (buttonHandler.isPressed(gamepad1.right_bumper))    wheels.turnRight();
-        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     lift.extendOnce(); //uh oh
-        //else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     lift.retractOnce(); //uh oh
-        else if (gamepad2.left_trigger > 0.2)    lift.retractToN(3);
-        else if (gamepad2.right_trigger > 0.2)   lift.retractToN(3);
-        else if (buttonHandler.isPressed(gamepad2.x))               catcher.closeClaw();
-        else if (buttonHandler.isPressed(gamepad2.y))               catcher.openClaw();
-        else                                                        wheels.stop();
+        if      (buttonHandler.isPressed(gamepad1.dpad_up))         robot.driveForward();
+        else if (buttonHandler.isPressed(gamepad1.dpad_down))       robot.driveBackward();
+        else if (buttonHandler.isPressed(gamepad1.left_bumper))     robot.turnLeft();
+        else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
+        else if (gamepad2.left_trigger > 0.2)                       robot.extendGlyphtoN(3);
+        else if (gamepad2.right_trigger > 0.2)                      robot.retractGlyphtoN(3);
+        else if (buttonHandler.isPressed(gamepad2.x))               robot.grabGlyph();
+        else if (buttonHandler.isPressed(gamepad2.y))               robot.dropGlyph();
+        else                                                        robot.stopWheels();
     }
     /*
      * Code to run ONCE after the driver hits STOP

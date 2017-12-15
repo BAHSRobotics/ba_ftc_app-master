@@ -8,19 +8,19 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
  * Created by 3115250 on 11/8/2017.
  */
 
-public class TankDrive {
+ class TankDrive {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
 
-    public TankDrive(){
+     TankDrive(){
         frontLeft = null;
         frontRight = null;
         backLeft = null;
         backRight = null;
     }
-    public void init(HardwareMap hardwareMap) {
+     void init(HardwareMap hardwareMap) {
         frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
         frontRight = hardwareMap.get(DcMotor.class, "frontRight");
         backLeft = hardwareMap.get(DcMotor.class, "backLeft");
@@ -31,33 +31,33 @@ public class TankDrive {
         backRight.setDirection(Direction.FORWARD);
     }
 
-    public void driveForward(){
+     void driveForward(){
         frontLeft.setPower(-1.0);
         frontRight.setPower(1.0);
         backLeft.setPower(-1.0);
         backRight.setPower(1.0);
     }
 
-    public void driveBackward(){
+     void driveBackward(){
         frontLeft.setPower(1.0);
         frontRight.setPower(-1.0);
         backLeft.setPower(1.0);
         backRight.setPower(-1.0);
     }
 
-    public void turnLeft(){
+     void turnLeft(){
         frontLeft.setPower(1.0);
         frontRight.setPower(1.0);
         backLeft.setPower(1.0);
         backRight.setPower(1.0);
     }
-    public void turnRight(){
+     void turnRight(){
         frontLeft.setPower(-1.0);
         frontRight.setPower(-1.0);
         backLeft.setPower(-1.0);
         backRight.setPower(-1.0);
     }
-    public void stop() {
+     void stop() {
         frontLeft.setPower(0);
         frontRight.setPower(0);
         backLeft.setPower(0);
