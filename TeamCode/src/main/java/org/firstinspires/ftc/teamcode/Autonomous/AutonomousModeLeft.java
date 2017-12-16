@@ -30,16 +30,10 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.factory.RobotFactory;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.teamcode.util.RoboFactory;
-
-import static com.sun.tools.javac.main.Option.S;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -55,8 +49,8 @@ import static com.sun.tools.javac.main.Option.S;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous (name="Autonomoustest", group="Iterative Opmode")
-public class AutonomousMode extends OpMode
+@Autonomous (name="AutonomousRightTurn", group="Iterative Opmode")
+public class AutonomousModeLeft extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -90,13 +84,18 @@ public class AutonomousMode extends OpMode
     public void start() {
         runtime.reset();
         runtime.startTimeNanoseconds();
-        robot.grabGlyph();
+        robot.dropGlyph();
         while (runtime.milliseconds()<1000){
            robot.driveForward();
         }
-        while(runtime.milliseconds())
+        while(runtime.milliseconds() < 1900 && runtime.milliseconds() > 1000){
+            robot.turnLeft();
+        }
+        while(runtime.milliseconds()<2300 && runtime.milliseconds()>1900){
+            robot.driveForward();
+        }
         robot.stopWheels();
-        robot.dropGlyph();
+        robot.grabGlyph();
     }
 
     /*
