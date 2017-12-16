@@ -84,7 +84,7 @@ public class AutonomousMode extends OpMode
 
     }
     /*
-     * Code to run ONCE when the driver hits PLAY
+     * Code to run maybe ONCE when the driver hits PLAY
      */
     @Override
     public void start() {
