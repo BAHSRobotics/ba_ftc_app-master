@@ -27,6 +27,7 @@ public class RoboFactory {
         lift.init(hardwareMap);
         relicPincher.init(hardwareMap);
         catcher.openClaw();
+        relicArm.init((hardwareMap));
     }
     public void driveForward() {
         wheels.driveForward();

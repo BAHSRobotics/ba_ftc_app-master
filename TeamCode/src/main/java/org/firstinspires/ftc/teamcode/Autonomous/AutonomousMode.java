@@ -55,7 +55,7 @@ import static com.sun.tools.javac.main.Option.S;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous (name="Autonomous", group="Iterative Opmode")
+@Autonomous (name="Autonomoustest", group="Iterative Opmode")
 public class AutonomousMode extends OpMode
 {
     // Declare OpMode members.
@@ -70,7 +70,7 @@ public class AutonomousMode extends OpMode
         telemetry.addData("Status", "Initialized");
 
      robot.init(hardwareMap);
-
+        robot.dropGlyph();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
     }
@@ -88,12 +88,13 @@ public class AutonomousMode extends OpMode
      */
     @Override
     public void start() {
-        robot.grabGlyph();
         runtime.reset();
         runtime.startTimeNanoseconds();
-        while (runtime.nanoseconds()<2000){
+        robot.grabGlyph();
+        while (runtime.milliseconds()<1000){
            robot.driveForward();
         }
+        while(runtime.milliseconds())
         robot.stopWheels();
         robot.dropGlyph();
     }
