@@ -70,7 +70,7 @@ public class AutonomousModeRight extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
 
-     robot.init(hardwareMap);
+     robot.initAutomonous(hardwareMap);
         robot.dropGlyph();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
@@ -103,6 +103,9 @@ public class AutonomousModeRight extends OpMode
         }
         robot.stopWheels();
         robot.grabGlyph();
+        while (runtime.milliseconds()>2500 && runtime.milliseconds()<3000){
+            robot.driveBackward();
+        }
     }
 
     /*

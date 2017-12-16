@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.util.RoboFactory;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous (name="AutonomousRightTurn", group="Iterative Opmode")
+@Autonomous (name="AutonomousLeftTurn", group="Iterative Opmode")
 public class AutonomousModeLeft extends OpMode
 {
     // Declare OpMode members.
@@ -63,10 +63,11 @@ public class AutonomousModeLeft extends OpMode
     public void init() {
         telemetry.addData("Status", "Initialized");
 
-     robot.init(hardwareMap);
+     robot.initAutomonous(hardwareMap);
         robot.dropGlyph();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
+        robot.setZero();
     }
 
     /*
@@ -85,7 +86,7 @@ public class AutonomousModeLeft extends OpMode
         runtime.reset();
         runtime.startTimeNanoseconds();
         robot.dropGlyph();
-        while (runtime.milliseconds()<1000){
+        while (runtime.milliseconds()< 900){
            robot.driveForward();
         }
         while(runtime.milliseconds() < 1900 && runtime.milliseconds() > 1000){
@@ -96,6 +97,9 @@ public class AutonomousModeLeft extends OpMode
         }
         robot.stopWheels();
         robot.grabGlyph();
+        while (runtime.milliseconds() > 2700 && runtime.milliseconds() < 3000){
+            robot.driveBackward();
+        }
     }
 
     /*

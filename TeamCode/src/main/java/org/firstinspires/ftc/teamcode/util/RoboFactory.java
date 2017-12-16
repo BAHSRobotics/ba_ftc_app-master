@@ -28,6 +28,13 @@ public class RoboFactory {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
         relicArm.init((hardwareMap));
+    } public void initAutomonous(HardwareMap hardwareMap){
+        catcher.init(hardwareMap);
+        wheels.init(hardwareMap);
+        lift.init(hardwareMap);
+        relicPincher.init(hardwareMap);
+        catcher.openClaw();
+        relicArm.init((hardwareMap));
     }
     public void driveForward() {
         wheels.driveForward();
@@ -72,4 +79,5 @@ public class RoboFactory {
     public void toggleRelicLift() {
         relicPincher.lift();
     }
+    public void setZero(){relicPincher.setZero();}
 }
