@@ -123,7 +123,9 @@ class OmniDrive {
     }
     void stopEncoders() {
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //9:33 1/11 - Realized if motor is stopped, it needs to be started again...
         stop();
+        frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
     private int convertInchesToEncoder(double distance) {
         return (int)(110.4 * distance);
