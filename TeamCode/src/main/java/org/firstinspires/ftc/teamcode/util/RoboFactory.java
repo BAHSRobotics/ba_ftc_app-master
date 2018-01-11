@@ -3,13 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-/*
- * Created by caleb on 12/7/2017.
- */
-
-
 public class RoboFactory {
-
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
@@ -19,8 +13,8 @@ public class RoboFactory {
     private RelicPincher relicPincher = new RelicPincher();
 
     public RoboFactory() {
-
     }
+
     public void init(HardwareMap hardwareMap) {
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
@@ -28,7 +22,8 @@ public class RoboFactory {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
         relicArm.init((hardwareMap));
-    } public void initAutomonous(HardwareMap hardwareMap){
+    }
+    public void initAutomonous(HardwareMap hardwareMap){
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
@@ -36,6 +31,7 @@ public class RoboFactory {
         catcher.openClaw();
         relicArm.init((hardwareMap));
     }
+
     public void driveForward() {
         wheels.driveForward();
     }
@@ -55,6 +51,16 @@ public class RoboFactory {
         wheels.turnRight();
     }
     public void stopWheels() {wheels.stop();}
+
+    public void startWheelEncoder(){wheels.startEncoder();}
+    public void driveForwardWithEncoders(int target){wheels.driveForwardWithEncoders(target);}
+    public void driveBackwardWithEncoders(int target){wheels.driveBackwardWithEncoders(target);}
+    public void turnRightWithEncoders(int target){wheels.turnRightWithEncoders(target);}
+    public void turnLeftWithEncoders(int target){wheels.turnLeftWithEncoders(target);}
+    public void driveRightWithEncoders(int distanceInInches){wheels.driveRightWithEncoders(distanceInInches);}
+    public void driveLeftWithEncoders(int distanceInInches){wheels.driveLeftWithEncoders(distanceInInches);}
+    public void stopWheelsWithEncoders() {wheels.stopEncoders();}
+
     public void extendGlyphtoN(int n) {
         lift.extendToN(n);
     }
@@ -67,17 +73,19 @@ public class RoboFactory {
     public void retractRelictoN(int n) {
         relicArm.extendToN(n);
     }
+
     public void grabGlyph() {
         catcher.closeClaw();
     }
     public void dropGlyph() {
         catcher.openClaw();
     }
+
     public void toggleRelicPincher() {
         relicPincher.pinch();
     }
     public void toggleRelicLift() {
         relicPincher.lift();
     }
-    public void setZero(){relicPincher.setZero();}
+    public void zeroPincher(){relicPincher.setZero();}
 }

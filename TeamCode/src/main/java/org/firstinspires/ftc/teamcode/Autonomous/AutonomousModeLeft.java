@@ -67,7 +67,7 @@ public class AutonomousModeLeft extends OpMode
         robot.dropGlyph();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-        robot.setZero();
+        robot.zeroPincher();
     }
 
     /*
