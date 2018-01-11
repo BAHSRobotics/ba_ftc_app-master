@@ -78,6 +78,7 @@ class OmniDrive {
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
     }
+
     void driveForwardWithEncoders(int distanceInInches) {
         frontRight.setTargetPosition(convertInchesToEncoder(distanceInInches));
         while (frontRight.getCurrentPosition() < frontRight.getTargetPosition()) {

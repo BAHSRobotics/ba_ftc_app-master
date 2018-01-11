@@ -29,22 +29,17 @@
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import android.util.Log;
-
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.util.RoboFactory;
+import org.firstinspires.ftc.teamcode.util.RobotHandler;
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-
-
-import static org.firstinspires.ftc.robotcontroller.internal.FtcRobotControllerActivity.TAG;
 
 @TeleOp(name = "Tank Drive TeleOp", group = "Iterative Opmode")
 public class DoubleDriverTank extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private RoboFactory robot = new RoboFactory();
+    private RobotHandler robot = new RobotHandler();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override

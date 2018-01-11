@@ -2,8 +2,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.teamcode.util.RoboFactory;
+import org.firstinspires.ftc.teamcode.util.RobotHandler;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
 /*
@@ -12,7 +11,7 @@ import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
 
 public class Autonomous10526 extends LinearOpMode {
-    private RoboFactory robot = new RoboFactory();
+    private RobotHandler robot = new RobotHandler();
     private VuforiaTracker tracker = new VuforiaTracker();
 
     @Override

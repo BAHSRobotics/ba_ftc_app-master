@@ -34,13 +34,13 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
-import org.firstinspires.ftc.teamcode.util.RoboFactory;
+import org.firstinspires.ftc.teamcode.util.RobotHandler;
 
 @TeleOp(name = "Solo Tank Drive TeleOp", group = "Iterative Opmode")
 public class SingleDriverTank extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private RoboFactory robot = new RoboFactory();
+    private RobotHandler robot = new RobotHandler();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RoboFactory {
+public class RobotHandler {
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
@@ -12,18 +12,9 @@ public class RoboFactory {
     private LinearSlide lift = new LinearSlide("spool");
     private RelicPincher relicPincher = new RelicPincher();
 
-    public RoboFactory() {
-    }
+    public RobotHandler() {}
 
     public void init(HardwareMap hardwareMap) {
-        catcher.init(hardwareMap);
-        wheels.init(hardwareMap);
-        lift.init(hardwareMap);
-        relicPincher.init(hardwareMap);
-        catcher.openClaw();
-        relicArm.init((hardwareMap));
-    }
-    public void initAutomonous(HardwareMap hardwareMap){
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
@@ -52,13 +43,13 @@ public class RoboFactory {
     }
     public void stopWheels() {wheels.stop();}
 
-    public void startWheelEncoder(){wheels.startEncoder();}
-    public void driveForwardWithEncoders(int target){wheels.driveForwardWithEncoders(target);}
-    public void driveBackwardWithEncoders(int target){wheels.driveBackwardWithEncoders(target);}
-    public void turnRightWithEncoders(int target){wheels.turnRightWithEncoders(target);}
-    public void turnLeftWithEncoders(int target){wheels.turnLeftWithEncoders(target);}
-    public void driveRightWithEncoders(int distanceInInches){wheels.driveRightWithEncoders(distanceInInches);}
-    public void driveLeftWithEncoders(int distanceInInches){wheels.driveLeftWithEncoders(distanceInInches);}
+    public void startWheelEncoder() {wheels.startEncoder();}
+    public void driveForwardWithEncoders(int target) {wheels.driveForwardWithEncoders(target);}
+    public void driveBackwardWithEncoders(int target) {wheels.driveBackwardWithEncoders(target);}
+    public void turnRightWithEncoders(int target) {wheels.turnRightWithEncoders(target);}
+    public void turnLeftWithEncoders(int target) {wheels.turnLeftWithEncoders(target);}
+    public void driveRightWithEncoders(int distanceInInches) {wheels.driveRightWithEncoders(distanceInInches);}
+    public void driveLeftWithEncoders(int distanceInInches) {wheels.driveLeftWithEncoders(distanceInInches);}
     public void stopWheelsWithEncoders() {wheels.stopEncoders();}
 
     public void extendGlyphtoN(int n) {
