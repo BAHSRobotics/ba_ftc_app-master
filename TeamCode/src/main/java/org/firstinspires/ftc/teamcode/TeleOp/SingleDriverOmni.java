@@ -52,11 +52,13 @@ public class SingleDriverOmni extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
+        robot.setOne();
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
         telemetry.clear();
         telemetry.addData("Status", "Initialized");
+
     }
 
     @Override
@@ -75,7 +77,7 @@ public class SingleDriverOmni extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.left_trigger))    robot.retractGlyphtoN(0);
         else if (buttonHandler.isPressed(gamepad1.right_trigger))   robot.extendGlyphtoN(3);
         else if (buttonHandler.isPressed(gamepad1.x))               robot.grabGlyph();
-        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropGlyph();
+        else if (buttonHandler.isPressed(gamepad1.y))               robot.moveServo();   //Change back to drop glyph
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     robot.toggleRelicPincher();
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     robot.toggleRelicLift();
         else if (buttonHandler.isPressed(gamepad1.start))           robot.extendRelictoN(8);

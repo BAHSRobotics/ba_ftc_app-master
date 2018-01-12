@@ -17,6 +17,7 @@ public class RoboFactory {
     private LinearSlide relicArm = new LinearSlide("relicArm");
     private LinearSlide lift = new LinearSlide("spool");
     private RelicPincher relicPincher = new RelicPincher();
+    private ColorSensor sensorServo = new ColorSensor();
 
     public RoboFactory() {
 
@@ -28,6 +29,7 @@ public class RoboFactory {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
         relicArm.init((hardwareMap));
+        sensorServo.init(hardwareMap);
     } public void initAutomonous(HardwareMap hardwareMap){
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
@@ -80,4 +82,6 @@ public class RoboFactory {
         relicPincher.lift();
     }
     public void setZero(){relicPincher.setZero();}
+    public void moveServo(){sensorServo.MoveServo();}
+    public void setOne(){sensorServo.SetOne();}
 }

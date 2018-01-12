@@ -67,7 +67,6 @@ public class AutonomousModeLeft extends OpMode
         robot.dropGlyph();
         // Tell the driver that initialization is complete.
         telemetry.addData("Status", "Initialized");
-        robot.setZero();
     }
 
     /*
@@ -86,18 +85,21 @@ public class AutonomousModeLeft extends OpMode
         runtime.reset();
         runtime.startTimeNanoseconds();
         robot.dropGlyph();
-        while (runtime.milliseconds()< 900){
+        while (runtime.milliseconds() <900 && runtime.milliseconds() >0){
+            robot.moveServo();
+        }
+        while (runtime.milliseconds()< 2900){
            robot.driveForward();
         }
-        while(runtime.milliseconds() < 1900 && runtime.milliseconds() > 1000){
+        while(runtime.milliseconds() < 3900 && runtime.milliseconds() > 3000){
             robot.turnLeft();
         }
-        while(runtime.milliseconds()<2300 && runtime.milliseconds()>1900){
+        while(runtime.milliseconds()<4300 && runtime.milliseconds()>4000){
             robot.driveForward();
         }
         robot.stopWheels();
         robot.grabGlyph();
-        while (runtime.milliseconds() > 2700 && runtime.milliseconds() < 3000){
+        while (runtime.milliseconds()>2500 && runtime.milliseconds()<3000){
             robot.driveBackward();
         }
     }
