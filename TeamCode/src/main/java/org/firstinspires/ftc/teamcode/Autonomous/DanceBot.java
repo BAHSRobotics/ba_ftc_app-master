@@ -21,7 +21,7 @@ public class DanceBot extends LinearOpMode {
         telemetry.update();
 
         while (opModeIsActive()) {
-                if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
+            if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                 robot.driveRightWithEncoders(6);
                 robot.turnRightWithEncoders(1);
                 robot.turnLeftWithEncoders(1);

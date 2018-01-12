@@ -44,12 +44,12 @@ public class RobotHandler {
     public void stopWheels() {wheels.stop();}
 
     public void startWheelEncoder() {wheels.startEncoder();}
-    public void driveForwardWithEncoders(int distanceInInches) {wheels.driveForwardWithEncoders(distanceInInches);}
-    public void driveBackwardWithEncoders(int distanceInInches) {wheels.driveBackwardWithEncoders(distanceInInches);}
+    public void driveForwardWithEncoders(double distanceInInches) {wheels.driveForwardWithEncoders(distanceInInches);}
+    public void driveBackwardWithEncoders(double distanceInInches) {wheels.driveBackwardWithEncoders(distanceInInches);}
     public void turnRightWithEncoders(double rotations) {wheels.turnRightWithEncoders(rotations);}
     public void turnLeftWithEncoders(double rotations) {wheels.turnLeftWithEncoders(rotations);}
-    public void driveRightWithEncoders(int distanceInInches) {wheels.driveRightWithEncoders(distanceInInches);}
-    public void driveLeftWithEncoders(int distanceInInches) {wheels.driveLeftWithEncoders(distanceInInches);}
+    public void driveRightWithEncoders(double distanceInInches) {wheels.driveRightWithEncoders(distanceInInches);}
+    public void driveLeftWithEncoders(double distanceInInches) {wheels.driveLeftWithEncoders(distanceInInches);}
     public void stopWheelsWithEncoders() {wheels.stopEncoders();}
 
     public void extendGlyphtoN(int n) {

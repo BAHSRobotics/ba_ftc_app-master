@@ -49,7 +49,7 @@ import org.firstinspires.ftc.teamcode.util.RobotHandler;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous (name="AutonomousRightTurn", group="Iterative Opmode")
+@Autonomous (name="AutonomousRightTurn", group="Deprecated")
 public class AutonomousModeRight extends OpMode
 {
     // Declare OpMode members.

@@ -34,7 +34,7 @@ public class VuforiaTracker extends VuforiaHandler{
     public VuforiaTracker(){}
     public void init() {
         parameters.vuforiaLicenseKey = VUFORIAKEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
         vuforia = ClassFactory.createVuforiaLocalizer(parameters);
         relicTrackables = this.vuforia.loadTrackablesFromAsset("RelicVuMark");
         relicTemplate = relicTrackables.get(0);

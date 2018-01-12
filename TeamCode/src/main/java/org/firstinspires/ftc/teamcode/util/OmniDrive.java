@@ -124,10 +124,10 @@ class OmniDrive {
         startEncoder();
     }
     private int convertInchesToEncoder(double distance) {
-        return (int)(110.4 * distance);
+        return (int)(110.4 * distance * 0.6);
     }
     private int convertInchesToLossyEncoder(double distance) {
-        return (int) (156.25 * distance);
+        return (int) (156.25 * distance * 0.6);
     }
-    private int convertRotationsToEncoder(double rotations){return (int)(6400 * rotations);}
+    private int convertRotationsToEncoder(double rotations){return (int)(6400 * rotations );}
 }

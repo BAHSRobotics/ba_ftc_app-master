@@ -28,7 +28,7 @@ public class VuforiaHandler {
     }
     public void init() {
         parameters.vuforiaLicenseKey = VUFORIAKEY;
-        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK;
+        parameters.cameraDirection = VuforiaLocalizer.CameraDirection.FRONT;
         vuforia = ClassFactory.createVuforiaLocalizer(parameters);
     }
 
