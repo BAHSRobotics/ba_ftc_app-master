@@ -41,6 +41,7 @@ public class VuforiaTracker extends VuforiaHandler{
         relicTemplate.setName("relicVuMarkTemplate");
         relicTrackables.activate();
     }
+
     public RelicRecoveryVuMark vumarkFound() {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate); //check if template visible
         if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // if found (visible)
@@ -52,6 +53,7 @@ public class VuforiaTracker extends VuforiaHandler{
             return null;
         }
     }
+
     public void vumarkPosition() {
         OpenGLMatrix pose = ((VuforiaTrackableDefaultListener)relicTemplate.getListener()).getPose();
 
