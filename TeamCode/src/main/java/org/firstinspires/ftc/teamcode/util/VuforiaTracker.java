@@ -45,13 +45,10 @@ public class VuforiaTracker extends VuforiaHandler{
     public RelicRecoveryVuMark vumarkFound() {
         RelicRecoveryVuMark vuMark = RelicRecoveryVuMark.from(relicTemplate); //check if template visible
         if (vuMark != RelicRecoveryVuMark.UNKNOWN) { // if found (visible)
-            telemetry.addData("VuMark", "%s visible", vuMark);
+            //telemetry.addData("VuMark", " visible");
             return vuMark;
         }
-        else {
-            //vumark not found (visible)
-            return null;
-        }
+        return RelicRecoveryVuMark.UNKNOWN;
     }
 
     public void vumarkPosition() {
