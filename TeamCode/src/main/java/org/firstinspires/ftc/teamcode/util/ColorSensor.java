@@ -25,7 +25,7 @@ public class ColorSensor {
     }
     void MoveServo(){
        if (sensorServo.getPosition() == 1.0)   sensorServo.setPosition(0.37);
-        else sensorServo.setPosition(1);
+        else sensorServo.setPosition(1);// boi
     }
     void SetOne (){
         sensorServo.setPosition(1);
