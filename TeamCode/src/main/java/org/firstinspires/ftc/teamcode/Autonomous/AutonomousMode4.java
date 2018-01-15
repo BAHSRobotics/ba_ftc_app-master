@@ -24,6 +24,7 @@ public class AutonomousMode4 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         tracker.init();
+        waitForStart();
 
         while (opModeIsActive()) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {

@@ -24,12 +24,14 @@ public class AutonomousMode3 extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
         robot.init(hardwareMap);
         tracker.init();
+        
+        waitForStart();
 
         while (opModeIsActive()) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                 robot.dropGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.driveLeftWithEncoders(BALANCE_TO_LEFT);
+                robot.driveRightWithEncoders(BALANCE_TO_LEFT);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.grabGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
@@ -37,7 +39,7 @@ public class AutonomousMode3 extends LinearOpMode {
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER)) {
                 robot.dropGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.driveLeftWithEncoders(BALANCE_TO_CENTER);
+                robot.driveRightWithEncoders(BALANCE_TO_CENTER);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.grabGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
@@ -45,7 +47,7 @@ public class AutonomousMode3 extends LinearOpMode {
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                 robot.dropGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.driveLeftWithEncoders(BALANCE_TO_RIGHT);
+                robot.driveRightWithEncoders(BALANCE_TO_RIGHT);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.grabGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
