@@ -3,14 +3,13 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
-import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
-import org.firstinspires.ftc.teamcode.util.RobotHandler;
+import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
 @Autonomous(name = "Wheel Test", group = "Tests")
 public class WheelTest extends LinearOpMode {
 
-    RobotHandler robot = new RobotHandler();
+    RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
     @Override

@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.util;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class RobotHandler {
+public class RobotWrapper {
 
     private ElapsedTime runtime = new ElapsedTime();
     private GlyphCatcher catcher = new GlyphCatcher();
@@ -11,9 +11,10 @@ public class RobotHandler {
     private LinearSlide relicArm = new LinearSlide("relicArm");
     private LinearSlide lift = new LinearSlide("spool");
     private RelicPincher relicPincher = new RelicPincher();
+    private TouchHandler touch = new TouchHandler();
 
-    public RobotHandler() {}
-
+    public RobotWrapper() {}
+    // Initialization
     public void init(HardwareMap hardwareMap) {
         catcher.init(hardwareMap);
         wheels.init(hardwareMap);
@@ -21,8 +22,10 @@ public class RobotHandler {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
         relicArm.init((hardwareMap));
+        touch.init(hardwareMap);
+        //runtime.reset();
     }
-
+    // Drive System
     public void driveForward() {
         wheels.driveForward();
     }
@@ -42,7 +45,7 @@ public class RobotHandler {
         wheels.turnRight();
     }
     public void stopWheels() {wheels.stop();}
-
+    // Encoded Drive System
     public void startWheelEncoder() {wheels.startEncoder();}
     public void driveForwardWithEncoders(double distanceInInches) {wheels.driveForwardWithEncoders(distanceInInches);}
     public void driveBackwardWithEncoders(double distanceInInches) {wheels.driveBackwardWithEncoders(distanceInInches);}
@@ -51,7 +54,7 @@ public class RobotHandler {
     public void driveRightWithEncoders(double distanceInInches) {wheels.driveRightWithEncoders(distanceInInches);}
     public void driveLeftWithEncoders(double distanceInInches) {wheels.driveLeftWithEncoders(distanceInInches);}
     public void stopWheelsWithEncoders() {wheels.stopEncoders();}
-
+    //Linear Slides
     public void extendGlyphtoN(int n) {
         lift.extendToN(n);
     }
@@ -64,14 +67,14 @@ public class RobotHandler {
     public void retractRelictoN(int n) {
         relicArm.extendToN(n);
     }
-
+    //Glyph Grabber
     public void grabGlyph() {
         catcher.closeClaw();
     }
     public void dropGlyph() {
         catcher.openClaw();
     }
-
+    //Relic Claw
     public void toggleRelicPincher() {
         relicPincher.pinch();
     }
@@ -79,4 +82,10 @@ public class RobotHandler {
         relicPincher.lift();
     }
     public void zeroPincher(){relicPincher.setZero();}
+    // Inputs
+    public boolean touchSensorPressed(){return touch.isPressed();}
+    public boolean touchSensorNotPressed(){return touch.isNotPressed();}
+    public void resetRuntime() {runtime.reset();}
+    public double getRuntime() {return runtime.milliseconds();}
+
 }

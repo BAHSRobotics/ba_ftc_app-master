@@ -33,7 +33,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.util.RobotHandler;
+import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 
 /**
  * This file contains an example of an iterative (Non-Linear) "OpMode".
@@ -54,7 +54,7 @@ public class AutonomousModeLeft extends OpMode
 {
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
-    private RobotHandler robot = new RobotHandler();
+    private RobotWrapper robot = new RobotWrapper();
 
     /*
      * Code to run ONCE when the driver hits INIT

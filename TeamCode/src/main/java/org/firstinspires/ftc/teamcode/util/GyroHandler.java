@@ -9,13 +9,13 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
  * Created by 4014465 on 11/28/2017.
  */
 
-public class GyroHandler {
+class GyroHandler {
     private GyroSensor gyro;
     private Telemetry telemetry;
-    public GyroHandler() {
+    GyroHandler() {
         gyro = null;
     }
-    public void init(HardwareMap hardwareMap) {
+    void init(HardwareMap hardwareMap) {
         gyro = hardwareMap.get(GyroSensor.class,"gyro");
         gyro.calibrate();
      //   telemetry.addData();

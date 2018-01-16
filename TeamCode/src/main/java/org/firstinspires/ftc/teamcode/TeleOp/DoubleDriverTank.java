@@ -32,14 +32,14 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
-import org.firstinspires.ftc.teamcode.util.RobotHandler;
+import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.ButtonHandler;
 
 @TeleOp(name = "Tank Drive TeleOp", group = "Iterative Opmode")
 public class DoubleDriverTank extends OpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
-    private RobotHandler robot = new RobotHandler();
+    private RobotWrapper robot = new RobotWrapper();
     private ButtonHandler buttonHandler = new ButtonHandler();
 
     @Override
