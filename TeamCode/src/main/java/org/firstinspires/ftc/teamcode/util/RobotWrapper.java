@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class RobotWrapper {
 
-    private ElapsedTime runtime = new ElapsedTime();
+    private RuntimeHandler runtime = new RuntimeHandler();
     private GlyphCatcher catcher = new GlyphCatcher();
     private OmniDrive wheels = new OmniDrive();
     private LinearSlide relicArm = new LinearSlide("relicArm");
@@ -21,39 +21,46 @@ public class RobotWrapper {
         lift.init(hardwareMap);
         relicPincher.init(hardwareMap);
         catcher.openClaw();
-        relicArm.init((hardwareMap));
+        relicArm.init(hardwareMap);
         touch.init(hardwareMap);
-        //runtime.reset();
     }
     // Drive System
-    public void driveForward() {
-        wheels.driveForward();
+    public void driveForward()
+        {wheels.driveForward();}
+    public void driveBackward()
+        {wheels.driveBackward();}
+    public void driveLeft()
+        {wheels.driveLeft();}
+    public void driveRight()
+        {wheels.driveRight();}
+    public void turnLeft()
+        {wheels.turnLeft();}
+    public void turnRight()
+        {wheels.turnRight();}
+    public void stopWheels()
+        {wheels.stop();}
+    /*
+     * Encoded Drive System
+     */
+    public void startWheelEncoder()
+        {wheels.startEncoder();}
+    public void driveForwardWithEncoders(double distanceInInches)
+        {wheels.driveForwardWithEncoders(distanceInInches);}
+    public void driveBackwardWithEncoders(double distanceInInches)
+        {wheels.driveBackwardWithEncoders(distanceInInches);}
+    public void turnRightWithEncoders(double rotations)
+        {wheels.turnRightWithEncoders(rotations);}
+    public void turnLeftWithEncoders(double rotations)
+        {wheels.turnLeftWithEncoders(rotations);}
+    public void driveRightWithEncoders(double distanceInInches)
+        {wheels.driveRightWithEncoders(distanceInInches);}
+    public void driveLeftWithEncoders(double distanceInInches)
+        {wheels.driveLeftWithEncoders(distanceInInches);}
+    public void stopWheelsWithEncoders()
+        {wheels.stopEncoders();}
+    public int getEncoderValue() {
+        return wheels.getEncoderValue();
     }
-    public void driveBackward() {
-        wheels.driveBackward();
-    }
-    public void driveLeft() {
-        wheels.driveLeft();
-    }
-    public void driveRight() {
-        wheels.driveRight();
-    }
-    public void turnLeft() {
-        wheels.turnLeft();
-    }
-    public void turnRight() {
-        wheels.turnRight();
-    }
-    public void stopWheels() {wheels.stop();}
-    // Encoded Drive System
-    public void startWheelEncoder() {wheels.startEncoder();}
-    public void driveForwardWithEncoders(double distanceInInches) {wheels.driveForwardWithEncoders(distanceInInches);}
-    public void driveBackwardWithEncoders(double distanceInInches) {wheels.driveBackwardWithEncoders(distanceInInches);}
-    public void turnRightWithEncoders(double rotations) {wheels.turnRightWithEncoders(rotations);}
-    public void turnLeftWithEncoders(double rotations) {wheels.turnLeftWithEncoders(rotations);}
-    public void driveRightWithEncoders(double distanceInInches) {wheels.driveRightWithEncoders(distanceInInches);}
-    public void driveLeftWithEncoders(double distanceInInches) {wheels.driveLeftWithEncoders(distanceInInches);}
-    public void stopWheelsWithEncoders() {wheels.stopEncoders();}
     //Linear Slides
     public void extendGlyphtoN(int n) {
         lift.extendToN(n);
@@ -82,10 +89,13 @@ public class RobotWrapper {
         relicPincher.lift();
     }
     public void zeroPincher(){relicPincher.setZero();}
+//=================================================================================================
     // Inputs
     public boolean touchSensorPressed(){return touch.isPressed();}
     public boolean touchSensorNotPressed(){return touch.isNotPressed();}
-    public void resetRuntime() {runtime.reset();}
-    public double getRuntime() {return runtime.milliseconds();}
+    public void resetRuntime() {runtime.resetRuntime();}
+    public double getRuntime() {return runtime.timeInMs();}
+    public boolean runtimeLessThan(double timeInSeconds) {return runtime.lessThan(timeInSeconds);}
+    public boolean runtimeGreaterThan(double timeInSeconds) {return runtime.greaterThan(timeInSeconds);}
 
 }

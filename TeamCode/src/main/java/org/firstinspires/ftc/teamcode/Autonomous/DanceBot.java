@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
 @Autonomous(name = "DanceBot", group = "Tests")
 public class DanceBot extends LinearOpMode {
-
+    // A proof of concept and test file to test use of vuforia and encoded motors
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
@@ -21,16 +21,16 @@ public class DanceBot extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                robot.driveRightWithEncoders(6);
+                robot.driveRightWithEncoders(12);
                 robot.turnRightWithEncoders(1);
                 robot.turnLeftWithEncoders(1);
-                robot.driveLeftWithEncoders(6);
+                robot.driveLeftWithEncoders(12);
             }
             else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                robot.driveLeftWithEncoders(6);
+                robot.driveLeftWithEncoders(12);
                 robot.turnLeftWithEncoders(1);
                 robot.turnRightWithEncoders(1);
-                robot.driveRightWithEncoders(6);
+                robot.driveRightWithEncoders(12);
             }
         }
     }

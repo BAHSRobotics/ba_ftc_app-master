@@ -13,11 +13,11 @@ public class AutonomousMode3 extends LinearOpMode {
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
-    private final double BALANCE_TO_CRYPTOBOX = 20;
-    private final double BALANCE_TO_RIGHT = 5.5;
-    private final double BALANCE_TO_CENTER = BALANCE_TO_RIGHT + 8;
-    private final double BALANCE_TO_LEFT = BALANCE_TO_CENTER + 7;
-    private final double CRYPTOBOX_DEPTH = 6;
+    private final double BALANCE_TO_CRYPTOBOX   = 20;
+    private final double BALANCE_TO_RIGHT       = 5.5;
+    private final double BALANCE_TO_CENTER      = BALANCE_TO_RIGHT + 8;
+    private final double BALANCE_TO_LEFT        = BALANCE_TO_CENTER + 7;
+    private final double CRYPTOBOX_DEPTH        = 6;
 
     @Override
     public void runOpMode() throws InterruptedException {

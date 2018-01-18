@@ -23,7 +23,7 @@ import static org.firstinspires.ftc.teamcode.util.Constants.VUFORIAKEY;
  */
 
 
-public class VuforiaTracker extends VuforiaHandler{
+public class VuforiaTracker {
     VuforiaTrackable relicTemplate;
     VuforiaTrackables relicTrackables;
     Telemetry telemetry;

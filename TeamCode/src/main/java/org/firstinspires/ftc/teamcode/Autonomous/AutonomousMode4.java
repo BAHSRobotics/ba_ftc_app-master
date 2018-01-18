@@ -13,11 +13,11 @@ public class AutonomousMode4 extends LinearOpMode {
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
-    private final double BALANCE_TO_CRYPTOBOX = 20;
-    private final double BALANCE_TO_LEFT = 5.5;
-    private final double BALANCE_TO_CENTER = BALANCE_TO_LEFT + 8;
-    private final double BALANCE_TO_RIGHT = BALANCE_TO_CENTER + 7;
-    private final double CRYPTOBOX_DEPTH = 6;
+    private final double BALANCE_TO_CRYPTOBOX   = 24;
+    private final double BALANCE_TO_LEFT        = 16;
+    private final double BALANCE_TO_CENTER      = BALANCE_TO_LEFT + 8;
+    private final double BALANCE_TO_RIGHT       = BALANCE_TO_CENTER + 8;
+    private final double CRYPTOBOX_DEPTH        = 6;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,27 +27,27 @@ public class AutonomousMode4 extends LinearOpMode {
 
         while (opModeIsActive()) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                robot.dropGlyph();
+                robot.grabGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.driveLeftWithEncoders(BALANCE_TO_LEFT);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-                robot.grabGlyph();
+                robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
                 break;
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER)) {
-                robot.dropGlyph();
+                robot.grabGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.driveLeftWithEncoders(BALANCE_TO_CENTER);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-                robot.grabGlyph();
+                robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
                 break;
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                robot.dropGlyph();
+                robot.grabGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.driveLeftWithEncoders(BALANCE_TO_RIGHT);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-                robot.grabGlyph();
+                robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
                 break;
             }

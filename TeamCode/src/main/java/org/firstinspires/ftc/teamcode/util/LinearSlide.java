@@ -5,11 +5,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 
 import static com.qualcomm.robotcore.hardware.DcMotor.RunMode.*;
 
-
-/**
- * Created by 4014465 on 11/8/2017.
- */
-
 class LinearSlide {
     private DcMotor motor;
     //private int currentEncoderValue;

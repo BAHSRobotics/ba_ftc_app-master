@@ -5,10 +5,6 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import static com.sun.tools.javac.main.Option.H;
 
-/**
- * Created by 4014465 on 12/4/2017.
- */
-
 class RelicPincher {
     private Servo wrist;
     private Servo pincher;
