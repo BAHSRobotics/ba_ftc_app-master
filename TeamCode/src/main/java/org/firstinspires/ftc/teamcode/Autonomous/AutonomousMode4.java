@@ -14,9 +14,9 @@ public class AutonomousMode4 extends LinearOpMode {
     private VuforiaTracker tracker = new VuforiaTracker();
 
     private final double BALANCE_TO_CRYPTOBOX   = 24;
-    private final double BALANCE_TO_LEFT        = 16;
-    private final double BALANCE_TO_CENTER      = BALANCE_TO_LEFT + 8;
-    private final double BALANCE_TO_RIGHT       = BALANCE_TO_CENTER + 8;
+    private final double BALANCE_TO_LEFT        = 20;
+    private final double BALANCE_TO_CENTER      = 28;
+    private final double BALANCE_TO_RIGHT       = 32;
     private final double CRYPTOBOX_DEPTH        = 6;
 
     @Override

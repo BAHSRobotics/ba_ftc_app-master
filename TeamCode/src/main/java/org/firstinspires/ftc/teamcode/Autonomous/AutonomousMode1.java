@@ -64,11 +64,11 @@ public class AutonomousMode1 extends LinearOpMode {
                 flag = true;
             }
             stop();
-            // Wild movement to find glyph
-            /*while (robot.touchSensorNotPressed() && robot.getRuntime() < 1000 * (30 - 7)) {
+             //Wild movement to find glyph
+            while (robot.isGlyphWithin(3) && robot.getRuntime() < 1000 * (30 - 7)) {
                 robot.driveBackwardWithEncoders(6);
                 robot.turnLeftWithEncoders(0.5);
-            }*/
+            }
         }
     }
 }

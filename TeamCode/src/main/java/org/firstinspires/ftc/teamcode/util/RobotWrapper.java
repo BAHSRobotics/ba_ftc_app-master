@@ -11,7 +11,7 @@ public class RobotWrapper {
     private LinearSlide relicArm = new LinearSlide("relicArm");
     private LinearSlide lift = new LinearSlide("spool");
     private RelicPincher relicPincher = new RelicPincher();
-    private TouchHandler touch = new TouchHandler();
+    private RangeHandler range = new RangeHandler();
 
     public RobotWrapper() {}
     // Initialization
@@ -22,7 +22,7 @@ public class RobotWrapper {
         relicPincher.init(hardwareMap);
         catcher.openClaw();
         relicArm.init(hardwareMap);
-        touch.init(hardwareMap);
+        range.init(hardwareMap);
     }
     // Drive System
     public void driveForward()
@@ -91,8 +91,8 @@ public class RobotWrapper {
     public void zeroPincher(){relicPincher.setZero();}
 //=================================================================================================
     // Inputs
-    public boolean touchSensorPressed(){return touch.isPressed();}
-    public boolean touchSensorNotPressed(){return touch.isNotPressed();}
+    public boolean isGlyphWithin(double distanceInCm){return range.isObjectWithinDistance(distanceInCm);}
+    public double nearestGlyph(){return range.getDistance();}
     public void resetRuntime() {runtime.resetRuntime();}
     public double getRuntime() {return runtime.timeInMs();}
     public boolean runtimeLessThan(double timeInSeconds) {return runtime.lessThan(timeInSeconds);}
