@@ -37,26 +37,21 @@ public class AutonomousMode1 extends LinearOpMode {
                 robot.grabGlyph();
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
-                    robot.turnLeftWithEncoders(ROTATION_AMOUNT);
-                    robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
                     break;
-                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
-                            robot.runtimeGreaterThan(WAIT_TIME)) {
+                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) || robot.runtimeGreaterThan(WAIT_TIME)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
-                    robot.turnLeftWithEncoders(ROTATION_AMOUNT);
-                    robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
-                    robot.turnLeftWithEncoders(ROTATION_AMOUNT);
-                    robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
                     break;
                 }
             }
             if (!flag) {
+                robot.turnLeftWithEncoders(ROTATION_AMOUNT);
+                robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);

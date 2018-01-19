@@ -34,28 +34,34 @@ public class AutonomousMode2 extends LinearOpMode {
         robot.resetRuntime();
         robot.grabGlyph();
         robot.extendGlyphtoN(1);
+        while (robot.runtimeLessThan(4.5)) {
+            // do nothing
+        }
+
         while (opModeIsActive()) {
             while (vumarkNotFound) {
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
+                    vumarkNotFound = false;
                     break;
-                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
-                        robot.runtimeGreaterThan(WAIT_TIME)) {
+                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) || robot.runtimeGreaterThan(WAIT_TIME)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CENTER);
+                    vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
+                    vumarkNotFound = false;
                     break;
                 }
             }
+
             if (!flag) {
+                robot.retractGlyphtoN(0);
                 robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                 robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-                robot.retractGlyphtoN(0); //skipped??
-                vumarkNotFound = false;
                 flag = true;
             }
             stop();

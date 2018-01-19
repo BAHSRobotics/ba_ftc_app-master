@@ -32,29 +32,39 @@ public class AutonomousMode3 extends LinearOpMode {
         tracker.init();
 
         robot.resetRuntime();
+        robot.grabGlyph();
+        robot.extendGlyphtoN(1);
+        while (robot.runtimeLessThan(4.5)) {
+            // do nothing
+        }
+
         while (opModeIsActive()) {
             while (vumarkNotFound) {
-                robot.grabGlyph();
+
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.driveRightWithEncoders(BALANCE_TO_LEFT);
+                    vumarkNotFound = false;
                     break;
-                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
-                        robot.runtimeGreaterThan(WAIT_TIME)) {
+                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) || robot.runtimeGreaterThan(WAIT_TIME)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.driveRightWithEncoders(BALANCE_TO_CENTER);
+                    vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.driveRightWithEncoders(BALANCE_TO_RIGHT);
+                    vumarkNotFound = false;
                     break;
                 }
             }
+
             if (!flag) {
+                robot.retractGlyphtoN(0);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(6);
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-                vumarkNotFound = false;
                 flag = true;
             }
             stop();
