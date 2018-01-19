@@ -35,7 +35,7 @@ public class AutonomousMode2 extends LinearOpMode {
         robot.grabGlyph();
         robot.extendGlyphtoN(1);
         while (robot.runtimeLessThan(4.5)) {
-            // do nothing
+            // do nothing, see comment in auto 3
         }
 
         while (opModeIsActive()) {
