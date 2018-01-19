@@ -32,34 +32,23 @@ public class AutonomousMode4 extends LinearOpMode {
         tracker.init();
 
         robot.resetRuntime();
-        while (opModeIsActive()) {
-            while (vumarkNotFound) {
-                robot.grabGlyph();
-            }
-            if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.turnRightWithEncoders(QUARTER_TURN);
-                robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
-                break;
-            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
-                    robot.runtimeGreaterThan(WAIT_TIME)) {
-                robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.turnRightWithEncoders(QUARTER_TURN);
-                robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
-                break;
-            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.driveLeftWithEncoders(BALANCE_TO_RIGHT);
-                break;
-            }
-            if (!flag) {
-                robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-                robot.dropGlyph();
-                robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-                vumarkNotFound = false;
-                flag = true;
-            }
-            stop();
+        robot.grabGlyph();
+        if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
+            robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+            robot.turnRightWithEncoders(QUARTER_TURN);
+            robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
+        } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
+                robot.runtimeGreaterThan(WAIT_TIME)) {
+            robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+            robot.turnRightWithEncoders(QUARTER_TURN);
+            robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
+        } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
+            robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+            robot.driveLeftWithEncoders(BALANCE_TO_RIGHT);
         }
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.dropGlyph();
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        stop();
     }
 }

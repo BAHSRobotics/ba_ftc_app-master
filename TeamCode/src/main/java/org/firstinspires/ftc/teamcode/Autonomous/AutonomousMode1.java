@@ -32,42 +32,33 @@ public class AutonomousMode1 extends LinearOpMode {
         tracker.init();
 
         robot.resetRuntime();
-        while (opModeIsActive()) {
-            while (vumarkNotFound) {
+
                 robot.grabGlyph();
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
-                    break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
                             robot.runtimeGreaterThan(WAIT_TIME)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
-                    break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                     robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
-                    break;
                 }
-            }
-            if (!flag) {
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
                 flag = true;
-            }
             stop();
              //Wild movement to find glyph
-            while (robot.isGlyphWithin(3) && robot.getRuntime() < 1000 * (30 - 7)) {
+            /*while (robot.isGlyphWithin(3) && robot.getRuntime() < 1000 * (30 - 7)) {
                 robot.driveBackwardWithEncoders(6);
-                robot.turnLeftWithEncoders(0.5);
+                robot.turnLeftWithEncoders(0.5);*/
             }
         }
-    }
-}
