@@ -67,9 +67,9 @@ class OmniDrive {
     }
     void stop() {
         frontLeft.setPower(0);
-        frontRight.setPower(0);
         backLeft.setPower(0);
         backRight.setPower(0);
+        frontRight.setPower(0);
     }
 
     void startEncoder() {
@@ -127,7 +127,7 @@ class OmniDrive {
         return frontRight.getCurrentPosition();
     }
     private int convertInchesToEncoder(double distance) {
-        return (int)(110.4 * distance /* 0.6*/); //TODO test maths
+        return (int)(89.78 * distance); //TODO test maths
     }
     private int convertInchesToLossyEncoder(double distance) {
         return (int) (156.25 * distance * 0.6);

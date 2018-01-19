@@ -14,9 +14,9 @@ public class AutonomousMode1 extends LinearOpMode {
     private VuforiaTracker tracker = new VuforiaTracker();
 
     private final double ROTATION_AMOUNT        = 0.25;
-    private final double BALANCE_TO_LEFT        = 22;
-    private final double BALANCE_TO_CENTER      = 26;
-    private final double BALANCE_TO_RIGHT       = 32;
+    private final double BALANCE_TO_LEFT        = 24;
+    private final double BALANCE_TO_CENTER      = 31.25;
+    private final double BALANCE_TO_RIGHT       = 38.75;
     private final double DISTANCE_TO_CRYPTOBOX  = 6;
     private final double CRYPTOBOX_DEPTH        = 6;
     private final double WAIT_TIME              = 10;
@@ -25,6 +25,7 @@ public class AutonomousMode1 extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
         waitForStart();
 
         robot.init(hardwareMap);
@@ -33,8 +34,8 @@ public class AutonomousMode1 extends LinearOpMode {
         robot.resetRuntime();
         while (opModeIsActive()) {
             while (vumarkNotFound) {
+                robot.grabGlyph();
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                    robot.grabGlyph();
                     robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
@@ -42,14 +43,12 @@ public class AutonomousMode1 extends LinearOpMode {
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
                             robot.runtimeGreaterThan(WAIT_TIME)) {
-                    robot.grabGlyph();
                     robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
                     vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                    robot.grabGlyph();
                     robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
                     robot.turnLeftWithEncoders(ROTATION_AMOUNT);
                     robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
