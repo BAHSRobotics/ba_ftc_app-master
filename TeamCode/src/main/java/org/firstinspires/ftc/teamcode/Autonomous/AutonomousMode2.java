@@ -21,7 +21,6 @@ public class AutonomousMode2 extends LinearOpMode {
     private final double DISTANCE_TO_CRYPTOBOX = 6;
     private final double WAIT_TIME = 10;
     private boolean vumarkNotFound = true;
-    private boolean flag = false;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -34,14 +33,21 @@ public class AutonomousMode2 extends LinearOpMode {
         robot.resetRuntime();
         robot.grabGlyph();
         robot.extendGlyphtoN(1);
-
-        if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-            robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
-        } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
-                robot.runtimeGreaterThan(WAIT_TIME)) {
-            robot.driveBackwardWithEncoders(BALANCE_TO_CENTER);
-        } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-            robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
+        while(vumarkNotFound) {
+            if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
+                vumarkNotFound = false;
+                break;
+            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
+                    robot.runtimeGreaterThan(WAIT_TIME)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_CENTER);
+                vumarkNotFound = false;
+                break;
+            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
+                vumarkNotFound = false;
+                break;
+            }
         }
 
         robot.turnLeftWithEncoders(ROTATION_AMOUNT);
@@ -49,9 +55,7 @@ public class AutonomousMode2 extends LinearOpMode {
         robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
         robot.dropGlyph();
         robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-        robot.retractGlyphtoN(0); //skipped??
-        vumarkNotFound = false;
-        flag = true;
+        robot.retractGlyphtoN(0);
 
         stop();
 
