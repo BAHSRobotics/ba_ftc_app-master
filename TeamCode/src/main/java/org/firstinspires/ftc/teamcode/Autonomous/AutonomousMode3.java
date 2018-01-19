@@ -35,7 +35,8 @@ public class AutonomousMode3 extends LinearOpMode {
         robot.grabGlyph();
         robot.extendGlyphtoN(1);
         while (robot.runtimeLessThan(4.5)) {
-            // do nothing
+            // do nothing, except cry because a logic structure with no action will break hearts 
+            // Also seems like a pointless structire period. no direct benefit to robot
         }
 
         while (opModeIsActive()) {
@@ -43,14 +44,20 @@ public class AutonomousMode3 extends LinearOpMode {
 
                 if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+                    robot.turnRightWithEncoders(QUARTER_TURN);
+                    robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
                     vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) || robot.runtimeGreaterThan(WAIT_TIME)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+                    robot.turnRightWithEncoders(QUARTER_TURN);
+                    robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
                     vumarkNotFound = false;
                     break;
                 } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                     robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+                    robot.turnRightWithEncoders(QUARTER_TURN);
+                    robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
                     vumarkNotFound = false;
                     break;
                 }
@@ -59,9 +66,7 @@ public class AutonomousMode3 extends LinearOpMode {
             if (!flag) {
                 robot.retractGlyphtoN(0);
                 robot.turnRightWithEncoders(QUARTER_TURN);
-                robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
-                robot.turnRightWithEncoders(QUARTER_TURN);
-                robot.driveForwardWithEncoders(6);
+                //robot.driveForwardWithEncoders(6); //what do mean
                 robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
                 robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
