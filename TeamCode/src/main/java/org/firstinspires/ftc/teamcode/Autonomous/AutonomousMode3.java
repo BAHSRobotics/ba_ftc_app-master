@@ -13,15 +13,14 @@ public class AutonomousMode3 extends LinearOpMode {
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
-    private final double BALANCE_TO_CRYPTOBOX   = 24;
-    private final double QUARTER_TURN           = 0.25;
-    private final double BALANCE_TO_RIGHT       = 4.75;
-    private final double BALANCE_TO_CENTER      = 12;
-    private final double BALANCE_TO_LEFT        = 19.5;
-    private final double CRYPTOBOX_DEPTH        = 6;
-    private final double WAIT_TIME              = 10;
-    private boolean vumarkNotFound              = true;
-    private boolean flag                        = false;
+    private final double BALANCE_TO_CRYPTOBOX = 24;
+    private final double QUARTER_TURN = 0.25;
+    private final double BALANCE_TO_RIGHT = 4.75;
+    private final double BALANCE_TO_CENTER = 12;
+    private final double BALANCE_TO_LEFT = 19.5;
+    private final double CRYPTOBOX_DEPTH = 6;
+    private final double WAIT_TIME = 10;
+    private boolean vumarkNotFound = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -33,46 +32,33 @@ public class AutonomousMode3 extends LinearOpMode {
 
         robot.resetRuntime();
         robot.grabGlyph();
-        robot.extendGlyphtoN(1);
-        while (robot.runtimeLessThan(4.5)) {
-            // do nothing, except cry because a logic structure with no action will break hearts 
-            // Also seems like a pointless structire period. no direct benefit to robot
-        }
-
-        while (opModeIsActive()) {
-            while (vumarkNotFound) {
-
-                if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                    robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.turnRightWithEncoders(QUARTER_TURN);
-                    robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
-                    vumarkNotFound = false;
-                    break;
-                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) || robot.runtimeGreaterThan(WAIT_TIME)) {
-                    robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.turnRightWithEncoders(QUARTER_TURN);
-                    robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
-                    vumarkNotFound = false;
-                    break;
-                } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                    robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                    robot.turnRightWithEncoders(QUARTER_TURN);
-                    robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
-                    vumarkNotFound = false;
-                    break;
-                }
-            }
-
-            if (!flag) {
-                robot.retractGlyphtoN(0);
+        while(vumarkNotFound) {
+            if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.turnRightWithEncoders(QUARTER_TURN);
-                //robot.driveForwardWithEncoders(6); //what do mean
-                robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-                robot.dropGlyph();
-                robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-                flag = true;
+                robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
+                vumarkNotFound = false;
+                break;
+            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
+                            robot.runtimeGreaterThan(WAIT_TIME)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
+                vumarkNotFound = false;
+                break;
+            } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
+                robot.driveBackwardWithEncoders(BALANCE_TO_CRYPTOBOX);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
+                vumarkNotFound = false;
+                break;
+
             }
-            stop();
         }
+        robot.turnRightWithEncoders(QUARTER_TURN);
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.dropGlyph();
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        stop();
     }
 }
