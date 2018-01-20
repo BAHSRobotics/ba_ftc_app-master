@@ -47,6 +47,7 @@ public class AutonomousMode2 extends LinearOpMode {
                 robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
                 vumarkNotFound = false;
                 break;
+
             }
         }
 

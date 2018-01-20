@@ -52,6 +52,7 @@ public class AutonomousMode3 extends LinearOpMode {
                 robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
                 vumarkNotFound = false;
                 break;
+
             }
         }
         robot.turnRightWithEncoders(QUARTER_TURN);
