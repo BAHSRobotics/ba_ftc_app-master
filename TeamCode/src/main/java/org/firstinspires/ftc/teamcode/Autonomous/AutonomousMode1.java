@@ -17,8 +17,8 @@ public class AutonomousMode1 extends LinearOpMode {
     private final double BALANCE_TO_LEFT        = 24;
     private final double BALANCE_TO_CENTER      = 31.25;
     private final double BALANCE_TO_RIGHT       = 38.75;
-    private final double DISTANCE_TO_CRYPTOBOX  = 6;
-    private final double CRYPTOBOX_DEPTH        = 6;
+    private final double DISTANCE_TO_CRYPTOBOX  = 5;
+    private final double CRYPTOBOX_DEPTH        = 4;
     private final double WAIT_TIME              = 10;
     private boolean vumarkNotFound              = true;
 
@@ -49,11 +49,11 @@ public class AutonomousMode1 extends LinearOpMode {
                         break;
                     }
                 }
-                robot.turnLeftWithEncoders(ROTATION_AMOUNT);
-                robot.driveForwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
-                robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+                robot.turnRightWithEncoders(ROTATION_AMOUNT);
+                robot.driveBackwardWithEncoders(DISTANCE_TO_CRYPTOBOX);
+                robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
                 robot.dropGlyph();
-                robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+                robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
             stop();
              //Wild movement to find glyph
             /*while (robot.isGlyphWithin(3) && robot.getRuntime() < 1000 * (30 - 7)) {

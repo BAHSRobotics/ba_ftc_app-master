@@ -25,9 +25,9 @@ class RelicPincher {
 
     }
     void lift() {
-        if (wrist.getPosition() == 0)   wrist.setPosition(.5);
-        else if (wrist.getPosition() == .5)  wrist.setPosition(1);
-        else if (wrist.getPosition() == 1) wrist.setPosition(.5);
+        if (wrist.getPosition() == 0)   wrist.setPosition(.7);
+        else if (wrist.getPosition() == .7)  wrist.setPosition(Servo.MAX_POSITION);
+        else if (wrist.getPosition() == 1) wrist.setPosition(.7);
     }
     void setZero(){
         pincher.setPosition(0.0);

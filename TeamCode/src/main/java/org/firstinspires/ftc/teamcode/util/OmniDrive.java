@@ -127,7 +127,7 @@ class OmniDrive {
         return frontRight.getCurrentPosition();
     }
     private int convertInchesToEncoder(double distance) {
-        return (int)(89.78 * distance); //TODO test maths
+        return (int)(89.78 * distance);
     }
     private int convertInchesToLossyEncoder(double distance) {
         return (int) (156.25 * distance * 0.6);

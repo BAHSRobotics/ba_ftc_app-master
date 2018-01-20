@@ -13,13 +13,13 @@ public class AutonomousMode3 extends LinearOpMode {
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
-    private final double BALANCE_TO_CRYPTOBOX = 24;
+    private final double BALANCE_TO_CRYPTOBOX = 23;
     private final double QUARTER_TURN = 0.25;
     private final double BALANCE_TO_RIGHT = 4.75;
     private final double BALANCE_TO_CENTER = 12;
     private final double BALANCE_TO_LEFT = 19.5;
     private final double CRYPTOBOX_DEPTH = 6;
-    private final double WAIT_TIME = 10;
+    private final double WAIT_TIME = 2;
     private boolean vumarkNotFound = true;
 
     @Override
@@ -55,10 +55,10 @@ public class AutonomousMode3 extends LinearOpMode {
 
             }
         }
-        robot.turnRightWithEncoders(QUARTER_TURN);
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.turnLeftWithEncoders(QUARTER_TURN);
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
         robot.dropGlyph();
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
         stop();
     }
 }
