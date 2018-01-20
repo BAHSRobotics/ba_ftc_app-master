@@ -62,7 +62,7 @@ public class RobotWrapper {
         return wheels.getEncoderValue();
     }
     //Linear Slides
-    public void extendGlyphtoN(int n) {
+    public void extendGlyphtoN(double n) {
         lift.extendToN(n);
     }
     public void retractGlyphtoN(int n) {
