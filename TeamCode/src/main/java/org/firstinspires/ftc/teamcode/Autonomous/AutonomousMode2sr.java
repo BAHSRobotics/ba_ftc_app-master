@@ -7,8 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
-@Autonomous(name = "Robotonics 2 Red", group = "Autonomous")
-public class AutonomousMode2 extends LinearOpMode {
+@Autonomous(name = "Structural 2 Red", group = "Autonomous")
+public class AutonomousMode2sr extends LinearOpMode {
 
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
@@ -49,10 +49,10 @@ public class AutonomousMode2 extends LinearOpMode {
             }
         }
 
-        robot.turnRightWithEncoders(ROTATION_AMOUNT);
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.turnLeftWithEncoders(ROTATION_AMOUNT);
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
         robot.dropGlyph();
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
 
         stop();
     }

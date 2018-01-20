@@ -7,8 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
-@Autonomous(name = "Robotonics 4 Blue", group = "Autonomous")
-public class AutonomousMode4 extends LinearOpMode {
+@Autonomous(name = "Structural 4 Blue", group = "Autonomous")
+public class AutonomousMode4sr extends LinearOpMode {
 
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
@@ -37,30 +37,30 @@ public class AutonomousMode4 extends LinearOpMode {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                 robot.grabGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.turnLeftWithEncoders(QUARTER_TURN);
-                robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
                 vumarkNotFound = false;
                 break;
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.CENTER) ||
                     robot.runtimeGreaterThan(WAIT_TIME)) {
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.turnLeftWithEncoders(QUARTER_TURN);
-                robot.driveBackwardWithEncoders(BALANCE_TO_CENTER);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_CENTER);
                 vumarkNotFound = false;
                 break;
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                 robot.grabGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
-                robot.turnLeftWithEncoders(QUARTER_TURN);
-                robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
+                robot.turnRightWithEncoders(QUARTER_TURN);
+                robot.driveForwardWithEncoders(BALANCE_TO_RIGHT);
                 vumarkNotFound = false;
                 break;
             }
         }
         robot.turnLeftWithEncoders(QUARTER_TURN);
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
         robot.dropGlyph();
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 3);
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 3);
         stop();
     }
 }
