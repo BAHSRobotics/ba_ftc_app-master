@@ -62,5 +62,6 @@ public class AutonomousMode4sr extends LinearOpMode {
         robot.dropGlyph();
         robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 3);
         stop();
+        //hi
     }
 }
