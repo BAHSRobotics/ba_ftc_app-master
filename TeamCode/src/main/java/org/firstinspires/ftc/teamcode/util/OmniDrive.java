@@ -10,6 +10,8 @@ class OmniDrive {
     private DcMotor frontRight;
     private DcMotor backLeft;
     private DcMotor backRight;
+    int prevEncoderValue;
+    int encoderValue;
 
     OmniDrive() {
         frontLeft = null;
@@ -79,7 +81,7 @@ class OmniDrive {
 
     void driveForwardWithEncoders(double distanceInInches) {
         frontRight.setTargetPosition(convertInchesToEncoder(distanceInInches));
-        while (frontRight.getCurrentPosition() < frontRight.getTargetPosition()) {
+        while ((encoderValue = frontRight.getCurrentPosition()) < frontRight.getTargetPosition()) {
             driveForward();
         }
         stopEncoders();
