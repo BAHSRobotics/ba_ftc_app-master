@@ -30,6 +30,16 @@ public class RobotWrapper {
         relicArm.init(hardwareMap);
         range.init(hardwareMap);
     }
+
+    //Joystick System
+    public void moveRobotRightSide(double r, double theta) {
+        wheels.moveRobotRightSide(r, theta);
+    }
+
+    public void moveRobotLeftSide(double r, double theta) {
+        wheels.moveRobotLeftSide(r, theta);
+    }
+
     // Drive System
     public void driveForward()
         {wheels.driveForward();}
