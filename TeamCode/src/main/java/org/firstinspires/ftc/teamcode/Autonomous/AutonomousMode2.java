@@ -30,7 +30,7 @@ public class AutonomousMode2 extends LinearOpMode {
         tracker.init();
 
         robot.resetRuntime();
-        robot.grabGlyph();
+        robot.grabBackGlyph();
 
         while(vumarkNotFound) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
@@ -51,7 +51,7 @@ public class AutonomousMode2 extends LinearOpMode {
 
         robot.turnRightWithEncoders(ROTATION_AMOUNT);
         robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropGlyph();
+        robot.dropBackGlyph();
         robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
 
         stop();

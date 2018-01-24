@@ -32,10 +32,10 @@ public class AutonomousMode4 extends LinearOpMode {
         tracker.init();
 
         robot.resetRuntime();
-        robot.grabGlyph();
+        robot.grabBackGlyph();
         while (vumarkNotFound) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
-                robot.grabGlyph();
+                robot.grabBackGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.turnLeftWithEncoders(QUARTER_TURN);
                 robot.driveBackwardWithEncoders(BALANCE_TO_LEFT);
@@ -49,7 +49,7 @@ public class AutonomousMode4 extends LinearOpMode {
                 vumarkNotFound = false;
                 break;
             } else if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
-                robot.grabGlyph();
+                robot.grabBackGlyph();
                 robot.driveForwardWithEncoders(BALANCE_TO_CRYPTOBOX);
                 robot.turnLeftWithEncoders(QUARTER_TURN);
                 robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
@@ -59,7 +59,7 @@ public class AutonomousMode4 extends LinearOpMode {
         }
         robot.turnLeftWithEncoders(QUARTER_TURN);
         robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropGlyph();
+        robot.dropBackGlyph();
         robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 3);
         stop();
     }

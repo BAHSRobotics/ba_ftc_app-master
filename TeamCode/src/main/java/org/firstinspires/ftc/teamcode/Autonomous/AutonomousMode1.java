@@ -7,6 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
+import static org.firstinspires.ftc.teamcode.Autonomous.RobotMath.convertInchesToEncoder;
+
 @Autonomous(name = "Robotonics 1 Blue", group = "Autonomous")
 public class AutonomousMode1 extends LinearOpMode {
 
@@ -20,6 +22,7 @@ public class AutonomousMode1 extends LinearOpMode {
     private final double CRYPTOBOX_DEPTH        = 12;
     private final double WAIT_TIME              = 10;
     private boolean vumarkNotFound              = true;
+    private boolean glyphNotFound;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -31,7 +34,7 @@ public class AutonomousMode1 extends LinearOpMode {
 
         robot.resetRuntime();
 
-        robot.grabGlyph();
+        robot.grabBackGlyph();
         while(vumarkNotFound) { //VuMark not always seen immediately, so check until it is seen
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                 robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
@@ -50,8 +53,27 @@ public class AutonomousMode1 extends LinearOpMode {
         }
         robot.turnRightWithEncoders(ROTATION_AMOUNT);
         robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropGlyph();
+        robot.dropBackGlyph();
         robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        while (glyphNotFound) {
+            robot.driveForwardWithEncoders(3);
+            if (robot.isGlyphWithin(5)) {
+                robot.grabBottomGlyph();
+                glyphNotFound = false;
+                break;
+            } else if (robot.runtimeGreaterThan(15)) {
+                glyphNotFound = false;
+                break;
+            } else if (robot.getEncoderValue() >= convertInchesToEncoder(48)) {
+                glyphNotFound = false;
+                break;
+            }
+        }
+        robot.driveBackwardWithEncoders(robot.getEncoderValue());
+        robot.turnRightWithEncoders(2 * ROTATION_AMOUNT);
+        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+        robot.dropBottomGlyph();
+        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
         stop();
             }
         }
