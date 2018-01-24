@@ -5,7 +5,15 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 
-class OmniDrive {
+class
+
+
+
+
+
+
+
+OmniDrive {
     private DcMotor frontLeft;
     private DcMotor frontRight;
     private DcMotor backLeft;
@@ -31,6 +39,20 @@ class OmniDrive {
         backRight.setDirection(DcMotor.Direction.FORWARD);
     }
 
+    //JOYSTICK MOTION
+    void moveRobotRightSide(double theta, double r) {
+        double newTheta = theta - 0.785398163; //rotate coordinate system 45 degrees counterclockwise pi/4
+        frontRight.setPower(r*Math.sin(newTheta));
+        backRight.setPower(r*Math.cos(newTheta));
+    }
+
+    void moveRobotLeftSide(double theta, double r) {
+        double newTheta = theta - 0.785398163; //rotate coordinate system 45 degrees counterclockwise pi/4
+        frontLeft.setPower(-r*Math.cos(newTheta));
+        backLeft.setPower(-r*Math.sin(newTheta));
+    }
+
+    //DPAD MOTION
     void driveForward() {
         frontLeft.setPower(-1.0);
         frontRight.setPower(1.0);
@@ -43,13 +65,13 @@ class OmniDrive {
         backLeft.setPower(1.0);
         backRight.setPower(-1.0);
     }
-    void driveLeft() {
+    void driveRight() {
         frontLeft.setPower(-1.0);
         backLeft.setPower(1.0);
         backRight.setPower(1.0);
         frontRight.setPower(-1.0);
     }
-    void driveRight() {
+    void driveLeft() {
         frontLeft.setPower(1.0);
         backLeft.setPower(-1.0);
         frontRight.setPower(1.0);
@@ -74,6 +96,7 @@ class OmniDrive {
         frontRight.setPower(0);
     }
 
+    //ENCODER BASED MOTION
     void startEncoder() {
         frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -125,6 +148,7 @@ class OmniDrive {
         stop();
         startEncoder();
     }
+
     int getEncoderValue() {
         return frontRight.getCurrentPosition();
     }

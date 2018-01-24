@@ -42,6 +42,10 @@ public class SingleDriverTank extends OpMode {
     private ElapsedTime runtime = new ElapsedTime();
     private RobotWrapper robot = new RobotWrapper();
     private ButtonHandler buttonHandler = new ButtonHandler();
+    double thetaRight = 0;
+    double magnitudeRight = 0;
+    private double thetaLeft = 0;
+    private double magnitudeLeft = 0;
 
     @Override
     public void init_loop() {
@@ -51,6 +55,7 @@ public class SingleDriverTank extends OpMode {
     @Override
     public void init() {
         robot.init(hardwareMap);
+        gamepad1.setJoystickDeadzone(0.2f);
 
         telemetry.addData("Status", "Initializing");
         telemetry.log().add("Gyro Calibrating. Do Not Move!");
@@ -69,11 +74,14 @@ public class SingleDriverTank extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.dpad_down))       robot.driveBackward();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     robot.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
-        else if (gamepad1.left_trigger > 0.2)                       robot.extendRelictoN(3);
-        else if (gamepad1.right_trigger > 0.2)                      robot.retractRelictoN(0);
-        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabGlyph();
-        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropGlyph();
-        else                                                        robot.stopWheels();
+        else {
+            thetaLeft = buttonHandler.findAngleJoystick(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            thetaRight = buttonHandler.findAngleJoystick(gamepad1.right_stick_y, gamepad1.right_stick_x);
+            magnitudeLeft = buttonHandler.findMagnitudeJoystick(gamepad1.left_stick_y, gamepad1.left_stick_x);
+            magnitudeRight = buttonHandler.findMagnitudeJoystick(gamepad1.right_stick_y, gamepad1.right_stick_x);
+            robot.moveRobotLeftSide(magnitudeLeft, thetaLeft);
+            robot.moveRobotRightSide(magnitudeRight, thetaRight);
+        }
     }
     /*
      * Code to run ONCE after the driver hits STOP
