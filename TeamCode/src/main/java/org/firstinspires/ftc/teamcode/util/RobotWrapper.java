@@ -6,7 +6,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class RobotWrapper {
 
     private RuntimeHandler runtime = new RuntimeHandler();
-    private GlyphCatcher catcher = new GlyphCatcher();
+    private GlyphCatcher topCatcher = new GlyphCatcher("topLeft", "topRight");
+    private GlyphCatcher bottomCatcher = new GlyphCatcher("bottomLeft", "bottomRight");
+    private GlyphCatcher backCatcher = new GlyphCatcher("backLeft", "backRight");
     private OmniDrive wheels = new OmniDrive();
     private LinearSlide relicArm = new LinearSlide("relicArm");
     private LinearSlide lift = new LinearSlide("spool");
@@ -16,11 +18,15 @@ public class RobotWrapper {
     public RobotWrapper() {}
     // Initialization
     public void init(HardwareMap hardwareMap) {
-        catcher.init(hardwareMap);
+        topCatcher.init(hardwareMap);
+        bottomCatcher.init(hardwareMap);
+        backCatcher.init(hardwareMap);
         wheels.init(hardwareMap);
         lift.init(hardwareMap);
         relicPincher.init(hardwareMap);
-        catcher.openClaw();
+        topCatcher.openClaw();
+        bottomCatcher.openClaw();
+        backCatcher.openClaw();
         relicArm.init(hardwareMap);
         range.init(hardwareMap);
     }
@@ -62,6 +68,8 @@ public class RobotWrapper {
         return wheels.getEncoderValue();
     }
     //Linear Slides
+    public void extendGlyph() {lift.extend();}
+    public void retractGlyph() {lift.retract();}
     public void extendGlyphtoN(double n) {
         lift.extendToN(n);
     }
@@ -74,12 +82,26 @@ public class RobotWrapper {
     public void retractRelictoN(int n) {
         relicArm.extendToN(n);
     }
+    public void extendRelic() {relicArm.extend();}
+    public void retractRelic() {relicArm.retract();}
     //Glyph Grabber
-    public void grabGlyph() {
-        catcher.closeClaw();
+    public void grabTopGlyph() {
+        topCatcher.closeClaw();
     }
-    public void dropGlyph() {
-        catcher.openClaw();
+    public void grabBackGlyph() {
+
+    }
+    public void dropBackGlyph() {
+
+    }
+    public void dropTopGlyph() {
+        topCatcher.openClaw();
+    }
+    public void grabBottomGlyph() {
+        bottomCatcher.closeClaw();
+    }
+    public void dropBottomGlyph() {
+        bottomCatcher.closeClaw();
     }
     //Relic Claw
     public void toggleRelicPincher() {

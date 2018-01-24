@@ -10,6 +10,7 @@ class LinearSlide {
     //private int currentEncoderValue;
     private static final int REVOLUTION = 1650;
     private String device;
+    private static final int MAX_VALUE = 1650 * 3;
 
     LinearSlide(String deviceName) {
        motor = null;
@@ -19,6 +20,18 @@ class LinearSlide {
         motor = hardwareMap.get(DcMotor.class, device);
         motor.setMode(STOP_AND_RESET_ENCODER);
         motor.setMode(RUN_TO_POSITION);
+    }
+    void extend() {
+        if(motor.getCurrentPosition() <= MAX_VALUE - 5)
+        motor.setTargetPosition(motor.getCurrentPosition() + 5);
+        motor.setPower(1.0);
+    }
+    void retract() {
+        if (motor.getCurrentPosition() >= 5 )
+            motor.setTargetPosition(motor.getCurrentPosition() - 5);
+        else
+            motor.setTargetPosition(0);
+        motor.setPower(-1.0);
     }
     void extendToN(double n) {
         motor.setTargetPosition((int) n * REVOLUTION);

@@ -7,14 +7,18 @@ class GlyphCatcher {
 
     private Servo leftServo;
     private Servo rightServo;
+    private String left;
+    private String right;
 
-    GlyphCatcher() {
+    GlyphCatcher(String leftDevice, String rightDevice) {
         leftServo = null;
         rightServo = null;
+        left = leftDevice;
+        right = rightDevice;
     }
     void init(HardwareMap hardwareMap) {
-        leftServo = hardwareMap.get(Servo.class,"leftServo");
-        rightServo = hardwareMap.get(Servo.class, "rightServo");
+        leftServo = hardwareMap.get(Servo.class,left);
+        rightServo = hardwareMap.get(Servo.class, right);
     }
     void closeClaw() {
         leftServo.setPosition(0.7);

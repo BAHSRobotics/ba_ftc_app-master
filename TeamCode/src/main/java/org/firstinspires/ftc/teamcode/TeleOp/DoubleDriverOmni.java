@@ -69,16 +69,29 @@ public class DoubleDriverOmni extends OpMode {
     public void loop() {
         if      (buttonHandler.isPressed(gamepad1.dpad_up))         robot.driveForward();
         else if (buttonHandler.isPressed(gamepad1.dpad_down))       robot.driveBackward();
-        else if (buttonHandler.isPressed(gamepad1.dpad_left))       robot.driveRight();
-        else if (buttonHandler.isPressed(gamepad1.dpad_right))      robot.driveLeft();
+        else if (buttonHandler.isPressed(gamepad1.dpad_left))       robot.driveLeft();
+        else if (buttonHandler.isPressed(gamepad1.dpad_right))      robot.driveRight();
         else if (buttonHandler.isPressed(gamepad1.left_bumper))     robot.turnLeft();
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
-        else if (gamepad2.left_trigger > 0.2)                       robot.retractGlyphtoN(3);
-        else if (gamepad2.right_trigger > 0.2)                      robot.extendGlyphtoN(3);
-        else if (buttonHandler.isPressed(gamepad2.x))               robot.grabGlyph();
-        else if (buttonHandler.isPressed(gamepad2.y))               robot.dropGlyph();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     robot.toggleRelicPincher();
-        else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     robot.toggleRelicLift();
+        else if (buttonHandler.isPressed(gamepad1.left_trigger))    robot.retractGlyphtoN(0);
+        else if (buttonHandler.isPressed(gamepad1.right_trigger))   robot.extendGlyphtoN(3);
+        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabBottomGlyph();
+        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropBottomGlyph();
+        else if (buttonHandler.isPressed(gamepad1.a))               robot.grabTopGlyph();
+        else if (buttonHandler.isPressed(gamepad1.b))               robot.dropTopGlyph();
+        else if (buttonHandler.isPressed(gamepad1.start))           robot.extendRelictoN(8);
+        else if (buttonHandler.isPressed(gamepad1.back))            robot.retractRelictoN(1);
+
+        else if (buttonHandler.isPressed(gamepad2.y))               robot.dropBackGlyph();
+        else if(buttonHandler.isPressed(gamepad2.x))                robot.grabBackGlyph();
+        else if (buttonHandler.isPressed(gamepad2.dpad_down))       robot.driveForward();
+        else if (buttonHandler.isPressed(gamepad2.dpad_up))         robot.driveBackward();
+        else if (buttonHandler.isPressed(gamepad2.right_trigger))   robot.extendGlyph();
+        else if (buttonHandler.isPressed(gamepad2.left_trigger))    robot.retractGlyph();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.a))     robot.toggleRelicPincher();
+        else if (buttonHandler.isAbsolutelyPressed(gamepad2.b))     robot.toggleRelicLift();
+        else if (buttonHandler.isPressed(gamepad2.start))           robot.extendRelic();
+        else if (buttonHandler.isPressed(gamepad2.back))            robot.retractRelic();
         else                                                        robot.stopWheels();
     }
     /*
