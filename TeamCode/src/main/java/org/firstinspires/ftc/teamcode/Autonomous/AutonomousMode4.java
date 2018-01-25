@@ -15,7 +15,6 @@ public class AutonomousMode4 extends LinearOpMode {
 
     private final double BALANCE_TO_CRYPTOBOX   = 21.5;
     private final double QUARTER_TURN           = 0.25;
-
     private final double BALANCE_TO_CENTER      = 11;
     private final double BALANCE_TO_LEFT        = BALANCE_TO_CENTER - 7.63;
     private final double BALANCE_TO_RIGHT       = BALANCE_TO_CENTER + 7.63;

@@ -69,8 +69,8 @@ public class DoubleDriverTank extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
         else if (gamepad2.left_trigger > 0.2)                       robot.extendGlyphtoN(3);
         else if (gamepad2.right_trigger > 0.2)                      robot.retractGlyphtoN(3);
-        else if (buttonHandler.isPressed(gamepad2.x))               robot.grabGlyph();
-        else if (buttonHandler.isPressed(gamepad2.y))               robot.dropGlyph();
+        else if (buttonHandler.isPressed(gamepad2.x))               robot.grabBottomGlyph();
+        else if (buttonHandler.isPressed(gamepad2.y))               robot.dropBottomGlyph();
         else                                                        robot.stopWheels();
     }
     /*

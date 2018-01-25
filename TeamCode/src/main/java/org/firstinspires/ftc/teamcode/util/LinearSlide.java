@@ -11,6 +11,7 @@ class LinearSlide {
     private static final int REVOLUTION = 1650;
     private String device;
     private static final int MAX_VALUE = 1650 * 3;
+    private static final int CHANGE_IN_THETA = 10;
 
     LinearSlide(String deviceName) {
        motor = null;
@@ -22,13 +23,13 @@ class LinearSlide {
         motor.setMode(RUN_TO_POSITION);
     }
     void extend() {
-        if(motor.getCurrentPosition() <= MAX_VALUE - 5)
-        motor.setTargetPosition(motor.getCurrentPosition() + 5);
+        if(motor.getCurrentPosition() <= MAX_VALUE - CHANGE_IN_THETA)
+        motor.setTargetPosition(motor.getCurrentPosition() + CHANGE_IN_THETA);
         motor.setPower(1.0);
     }
     void retract() {
-        if (motor.getCurrentPosition() >= 5 )
-            motor.setTargetPosition(motor.getCurrentPosition() - 5);
+        if (motor.getCurrentPosition() >=  CHANGE_IN_THETA)
+            motor.setTargetPosition(motor.getCurrentPosition() - CHANGE_IN_THETA);
         else
             motor.setTargetPosition(0);
         motor.setPower(-1.0);

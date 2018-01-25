@@ -44,8 +44,8 @@ public class SingleDriverOmni extends OpMode {
         else if (buttonHandler.isPressed(gamepad1.right_bumper))    robot.turnRight();
         else if (buttonHandler.isPressed(gamepad1.left_trigger))    robot.retractGlyphtoN(0);
         else if (buttonHandler.isPressed(gamepad1.right_trigger))   robot.extendGlyphtoN(3);
-        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabGlyph();
-        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropGlyph();
+        else if (buttonHandler.isPressed(gamepad1.x))               robot.grabBottomGlyph();
+        else if (buttonHandler.isPressed(gamepad1.y))               robot.dropBottomGlyph();
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.a))     robot.toggleRelicPincher();
         else if (buttonHandler.isAbsolutelyPressed(gamepad1.b))     robot.toggleRelicLift();
         else if (buttonHandler.isPressed(gamepad1.start))           robot.extendRelictoN(8);
