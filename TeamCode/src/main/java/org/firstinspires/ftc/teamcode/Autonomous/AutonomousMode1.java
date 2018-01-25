@@ -15,27 +15,52 @@ public class AutonomousMode1 extends LinearOpMode {
     private RobotWrapper robot = new RobotWrapper();
     private VuforiaTracker tracker = new VuforiaTracker();
 
-    private final double ROTATION_AMOUNT        = 0.25;
-    private final double BALANCE_TO_CENTER      = 28;
-    private final double BALANCE_TO_LEFT        = BALANCE_TO_CENTER - 7.63;
-    private final double BALANCE_TO_RIGHT       = BALANCE_TO_CENTER + 7.63;
-    private final double CRYPTOBOX_DEPTH        = 12;
-    private final double WAIT_TIME              = 10;
-    private boolean vumarkNotFound              = true;
-    private boolean glyphNotFound;
+    private final double ROTATION_AMOUNT = 0.25;
+    private final double BALANCE_TO_CENTER = 28;
+    private final double BALANCE_TO_LEFT = BALANCE_TO_CENTER - 7.63;
+    private final double BALANCE_TO_RIGHT = BALANCE_TO_CENTER + 7.63;
+    private final double CRYPTOBOX_DEPTH = 12;
+    private final double WAIT_TIME = 10;
+    private boolean vumarkNotFound = true;
+    private boolean glyphNotFound = true;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         waitForStart();
 
+        initRobot();
+        lookForVumark();
+        
+        scoreGlyph();
+        lookForGlyph();
+        scoreGlyph();
+        stop();
+    }
+
+    private void initRobot() {
         robot.init(hardwareMap);
         tracker.init();
-
         robot.resetRuntime();
-
         robot.grabBackGlyph();
-        while(vumarkNotFound) { //VuMark not always seen immediately, so check until it is seen
+    }
+    private void scoreGlyph() {
+        if (!glyphNotFound) {
+            robot.driveBackwardWithEncoders(robot.getEncoderValue());
+            robot.turnRightWithEncoders(2 * ROTATION_AMOUNT);
+            robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
+            robot.dropBottomGlyph();
+            robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        } else if (!vumarkNotFound){
+            robot.turnRightWithEncoders(ROTATION_AMOUNT);
+            robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
+            robot.dropBackGlyph();
+            robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        }
+
+    }
+    private void lookForVumark() {
+        while (vumarkNotFound) { //VuMark not always seen immediately, so check until it is seen
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.LEFT)) {
                 robot.driveForwardWithEncoders(BALANCE_TO_LEFT);
                 vumarkNotFound = false;
@@ -51,10 +76,8 @@ public class AutonomousMode1 extends LinearOpMode {
                 break;
             }
         }
-        robot.turnRightWithEncoders(ROTATION_AMOUNT);
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropBackGlyph();
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+    }
+    private void lookForGlyph() {
         while (glyphNotFound) {
             robot.driveForwardWithEncoders(3);
             if (robot.isGlyphWithin(5)) {
@@ -69,11 +92,5 @@ public class AutonomousMode1 extends LinearOpMode {
                 break;
             }
         }
-        robot.driveBackwardWithEncoders(robot.getEncoderValue());
-        robot.turnRightWithEncoders(2 * ROTATION_AMOUNT);
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropBottomGlyph();
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-        stop();
-            }
-        }
+    }
+}

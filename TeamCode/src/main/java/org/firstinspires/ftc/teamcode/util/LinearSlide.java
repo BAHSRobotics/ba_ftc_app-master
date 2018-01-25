@@ -23,7 +23,7 @@ class LinearSlide {
         motor.setMode(RUN_TO_POSITION);
     }
     void extend() {
-        if(motor.getCurrentPosition() <= MAX_VALUE - CHANGE_IN_THETA)
+        if (motor.getCurrentPosition() <= MAX_VALUE - CHANGE_IN_THETA)
         motor.setTargetPosition(motor.getCurrentPosition() + CHANGE_IN_THETA);
         motor.setPower(1.0);
     }

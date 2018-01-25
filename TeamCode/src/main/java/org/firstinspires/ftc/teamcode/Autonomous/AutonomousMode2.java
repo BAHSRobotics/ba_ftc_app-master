@@ -7,6 +7,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.RelicRecoveryVuMark;
 import org.firstinspires.ftc.teamcode.util.RobotWrapper;
 import org.firstinspires.ftc.teamcode.util.VuforiaTracker;
 
+import static org.firstinspires.ftc.teamcode.Autonomous.RobotMath.convertInchesToEncoder;
+
 @Autonomous(name = "Robotonics 2 Red", group = "Autonomous")
 public class AutonomousMode2 extends LinearOpMode {
 
@@ -20,18 +22,37 @@ public class AutonomousMode2 extends LinearOpMode {
     private final double CRYPTOBOX_DEPTH = 12;
     private final double WAIT_TIME = 10;
     private boolean vumarkNotFound = true;
+    private boolean glyphNotFound;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         waitForStart();
+        initRobot();
+        lookForVumark();
+        scoreGlyph();
+        lookForGlyph();
+        scoreGlyph();
 
+        stop();
+    }
+    private void scoreGlyph() {
+        if(!glyphNotFound) {
+
+        } else if (!vumarkNotFound){
+            robot.turnRightWithEncoders(ROTATION_AMOUNT);
+            robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
+            robot.dropBackGlyph();
+            robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
+        }
+    }
+    private void initRobot() {
         robot.init(hardwareMap);
         tracker.init();
-
         robot.resetRuntime();
         robot.grabBackGlyph();
-
+    }
+    private void lookForVumark() {
         while(vumarkNotFound) {
             if (tracker.vumarkFound().equals(RelicRecoveryVuMark.RIGHT)) {
                 robot.driveBackwardWithEncoders(BALANCE_TO_RIGHT);
@@ -48,12 +69,21 @@ public class AutonomousMode2 extends LinearOpMode {
                 break;
             }
         }
-
-        robot.turnRightWithEncoders(ROTATION_AMOUNT);
-        robot.driveBackwardWithEncoders(CRYPTOBOX_DEPTH);
-        robot.dropBackGlyph();
-        robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
-
-        stop();
+    }
+    private void lookForGlyph() {
+        while (glyphNotFound) {
+            robot.driveForwardWithEncoders(3);
+            if (robot.isGlyphWithin(5)) {
+                robot.grabBottomGlyph();
+                glyphNotFound = false;
+                break;
+            } else if (robot.runtimeGreaterThan(15)) {
+                glyphNotFound = false;
+                break;
+            } else if (robot.getEncoderValue() >= convertInchesToEncoder(48)) {
+                glyphNotFound = false;
+                break;
+            }
+        }
     }
 }

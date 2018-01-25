@@ -61,4 +61,7 @@ public class AutonomousMode3 extends LinearOpMode {
         robot.driveForwardWithEncoders(CRYPTOBOX_DEPTH / 2);
         stop();
     }
+    private void initRobot() {
+
+    }
 }
